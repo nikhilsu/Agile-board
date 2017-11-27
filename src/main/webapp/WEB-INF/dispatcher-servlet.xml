@@ -6,7 +6,7 @@
 
     <!--Configures support for @Controllers-->
     <mvc:annotation-driven />
-    <context:component-scan base-package="com.prorg" />
+    <context:component-scan base-package="com.prorg.controller" />
 
     <!--<mvc:default-servlet-handler />-->
 
