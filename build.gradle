@@ -13,6 +13,7 @@ apply plugin:'idea'
 apply plugin:'java'
 apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
+apply plugin: 'distribution'
 
 ext.springVersion='4.3.12.RELEASE'
 ext.hibernateVersion='5.2.11.Final'
@@ -73,4 +74,8 @@ gretty {
 task createDB(type: Exec){
     workingDir 'db'
     commandLine './create.sh'
+}
+
+task stage {
+    dependsOn installDist
 }
