@@ -9,9 +9,9 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 ```
-Postgres 10.1
+Postgres 9.4.15
 Gradle 4.2.1
-Jetty 9.4
+Jetty 9.4.7
 ```
 
 ## Running the app

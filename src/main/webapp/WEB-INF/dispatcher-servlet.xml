@@ -10,7 +10,11 @@
 
     <!--<mvc:default-servlet-handler />-->
 
-    <mvc:resources mapping="/favicon.ico" location="images/favicon.ico" />
+    <mvc:resources mapping="/js/**" location="/resources/js/" />
+    <mvc:resources mapping="/css/**" location="/resources/css/" />
+    <mvc:resources mapping="/images/**" location="/resources/images/" />
+    <mvc:resources mapping="/humans.txt" location="/humans.txt" />
+    <mvc:resources mapping="/favicon.ico" location="/resources/images/favicon.ico" />
 
     <!--Changes the directory of the views-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

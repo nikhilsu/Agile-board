@@ -43,7 +43,10 @@ dependencies {
     compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
     compile "org.hibernate:hibernate-core:$hibernateVersion"
     compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
-    compile "org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final"
+    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+
+    // C3P0
+    compile group: 'c3p0', name: 'c3p0', version: '0.9.0.4'
 
     // postgres
     compile 'postgresql:postgresql:9.1-901-1.jdbc4'
@@ -67,3 +70,7 @@ gretty {
     }
 }
 
+task createDB(type: Exec){
+    workingDir 'db'
+    commandLine './create.sh'
+}
