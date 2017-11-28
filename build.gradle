@@ -13,7 +13,6 @@ apply plugin:'idea'
 apply plugin:'java'
 apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
-apply plugin: 'distribution'
 
 ext.springVersion='4.3.12.RELEASE'
 ext.hibernateVersion='5.2.11.Final'
@@ -25,10 +24,6 @@ repositories {
 }
 
 dependencies {
-
-    compile 'org.slf4j:slf4j-api:1.5.8'
-    compile 'org.slf4j:slf4j-simple:1.5.8'
-    compile 'ch.qos.logback:logback-core:0.9.17'
 
     providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
 
@@ -66,9 +61,6 @@ idea {
 gretty {
     httpPort = 8080
     contextPath = '/'
-    onStart {
-        System.setProperty("APP_ENV", "dev")
-    }
 }
 
 task createDB(type: Exec){
@@ -76,6 +68,8 @@ task createDB(type: Exec){
     commandLine './create.sh'
 }
 
-task stage {
-    dependsOn installDist
+project.afterEvaluate {
+    [appRun, jettyRun, jettyRunWar, appRunDebug, appRestart]*.doFirst {
+        //TODO: write code to set env variable for DATABASE_URL
+    }
 }
