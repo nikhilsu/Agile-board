@@ -19,3 +19,12 @@ Jetty 9.4.7
 ```
 ./gradlew appRun
 ```
+
+Note: The app will not unless the env var 'DATABASE_URL' is set with the right database URL.
+```
+export DATABASE_URL="postgres://<username>:<password>@<server>:<port>/<dbName>"
+```
+Example :-
+```bash
+export DATABASE_URL="postgres://postgres:postgres@localhost:5432/prorg"
+```

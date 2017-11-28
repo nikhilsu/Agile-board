@@ -2,9 +2,13 @@ buildscript {
     repositories {
         mavenLocal()
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
-
     dependencies {
+        classpath 'gradle.plugin.com.boxfuse.client:flyway-release:4.0.3'
+        classpath group: 'org.postgresql', name: 'postgresql', version: '9.4.1208.jre7'
         classpath 'org.akhikhl.gretty:gretty:+'
     }
 }
@@ -13,6 +17,7 @@ apply plugin:'idea'
 apply plugin:'java'
 apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
+apply plugin: 'org.flywaydb.flyway'
 
 ext.springVersion='4.3.12.RELEASE'
 ext.hibernateVersion='5.2.11.Final'
@@ -68,8 +73,23 @@ task createDB(type: Exec){
     commandLine './create.sh'
 }
 
+flyway {
+    def dbUri = new URI(System.getenv("DATABASE_URL"))
+
+    def username = dbUri.getUserInfo().split(":")[0]
+    def passwd = dbUri.getUserInfo().split(":")[1]
+    def dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
+
+    url = dbUrl
+    user = username
+    password = passwd
+    locations = ['filesystem:db/migrations']
+}
+
 project.afterEvaluate {
     [appRun, jettyRun, jettyRunWar, appRunDebug, appRestart]*.doFirst {
         //TODO: write code to set env variable for DATABASE_URL
     }
 }
+
+build.dependsOn flywayMigrate
