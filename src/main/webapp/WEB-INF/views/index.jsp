@@ -1,11 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="pageTitle" scope="request" value="Home"/>
+<%@ include file="header.jsp" %>
 
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
 <c:out value="${message}"/>
 
 <ul>
@@ -13,5 +10,3 @@
         <li>${user.lastName}, ${user.firstName} </li>
     </c:forEach>
 </ul>
-</body>
-</html>

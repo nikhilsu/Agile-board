@@ -1,5 +1,8 @@
-This is the registration form! Register here.
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="pageTitle" scope="request" value="Register"/>
+<%@ include file="header.jsp" %>
 
+This is the registration form! Register here.
 
 <form action="${pageContext.request.contextPath}/register" method="post">
     <label for="first-name">
