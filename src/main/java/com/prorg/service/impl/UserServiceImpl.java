@@ -42,4 +42,10 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password_hash);
         return userDao.save(user);
     }
+
+    @Override
+    public boolean loginUser(String email, String password) {
+        User userByEmail = userDao.findByEmail(email);
+        return passwordHash.isExpectedPassword(password, userByEmail.getSalt(), userByEmail.getPassword());
+    }
 }

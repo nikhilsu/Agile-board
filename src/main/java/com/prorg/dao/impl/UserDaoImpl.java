@@ -5,9 +5,9 @@ import com.prorg.model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -36,6 +36,13 @@ public class UserDaoImpl implements UserDao {
             System.out.println(exception.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        Query query = getCurrentSession().createQuery("from User where email = :email");
+        query.setParameter("email", email);
+        return (User) query.getSingleResult();
     }
 
     private Session getCurrentSession() {
