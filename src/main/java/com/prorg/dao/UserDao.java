@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserDao {
     List<User> list();
-    void save();
+    boolean save(User user);
 }

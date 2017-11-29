@@ -64,7 +64,7 @@ idea {
 }
 
 gretty {
-    httpPort = 8080
+    httpPort = Integer.parseInt(System.getProperty("httpPort", "8080"))
     contextPath = '/'
 }
 

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserService {
     List<User> list();
-    void save();
+    boolean createUser(String firstName, String lastName, String email, String password, String confirmPassword);
 }
