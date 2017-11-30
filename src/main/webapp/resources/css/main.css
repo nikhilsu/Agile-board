@@ -1,0 +1,55 @@
+/*App CSS*/
+.app-color{
+    background-color: #2A363F;
+}
+.app-font, .app-font input{
+    font-family: 'Vollkorn SC', serif;
+}
+.text-center{
+    text-align: center;
+}
+.color-white{
+    color:#fff;
+}
+.image-logo{
+    margin-top: 50px;
+}
+.width-full{
+    width: 100%;
+}
+.login-box {
+    width: 50%;
+}
+.inline-flex{
+    display: inline-flex;
+}
+.flex-center{
+    display: flex;
+    justify-content: center;
+}
+.text-box input{
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    padding: 8px 10px;
+    margin-right: 8px;
+    color: #444;
+    outline: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login-button input{
+    background-color: #1ea9b5;
+    color:white;
+}
+.sign-notamember{
+    font-size: 20px;
+    color:#999
+}
+.sign-notamember a{
+    color:#999;
+}
