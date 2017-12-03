@@ -14,6 +14,18 @@
 .image-logo{
     margin-top: 50px;
 }
+.image-home{
+    margin-top: 5px;
+}
+
+
+.division-login{
+  margin-top: 1px;
+  width: 50%;
+}
+.division-register{
+  width: 50%;
+}
 .width-full{
     width: 100%;
 }
@@ -42,6 +54,21 @@
     text-align: center;
 }
 
+.button-home input{
+    width: 20%;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    padding: 8px 10px;
+    color: #444;
+    outline: none;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    margin-right: 100px;
+}
+
+
 .login-button input{
     background-color: #1ea9b5;
     color:white;
@@ -50,6 +77,14 @@
     font-size: 20px;
     color:#999
 }
-.sign-notamember a{
+.sign-notamember{
     color:#999;
+}
+
+.header-image{
+   background-image:url("../images/home.jpg");
+   width: 100%;
+   height: 30%;
+   margin-top: 1px;
+   margin-right: 50px;
 }
