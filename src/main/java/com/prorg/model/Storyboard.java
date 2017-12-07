@@ -4,8 +4,8 @@ import javax.validation.constraints.Size;
 
 
 @Entity
-@Table(name = "project_details")
-public class Project {
+@Table(name = "storyboard_details")
+public class Storyboard {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)

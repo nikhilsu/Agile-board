@@ -1,10 +1,10 @@
 package com.prorg.dao;
 
-import com.prorg.model.Project;
+import com.prorg.model.Storyboard;
 
 import java.util.List;
 
-public interface ProjectDao {
-    List<Project> list();
-    boolean save(Project project);
+public interface StoryboardDao {
+    List<Storyboard> list();
+    boolean save(Storyboard storyboard);
 }

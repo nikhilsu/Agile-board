@@ -1,7 +1,6 @@
 package com.prorg.controller.auth;
 
-import com.prorg.service.ProjectService;
-import com.prorg.service.UserService;
+import com.prorg.service.StoryboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,26 +10,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/addProject")
-public class ProjectController {
+@RequestMapping("/addStoryboard")
+public class StoryboardController {
 
-    private ProjectService projectService;
+    private StoryboardService storyboardService;
     @Autowired
-    public ProjectController(ProjectService projectService) {
-        this.projectService = projectService;
+    public StoryboardController(StoryboardService storyboardService) {
+        this.storyboardService = storyboardService;
     }
     @RequestMapping(method = RequestMethod.GET)
-    public String showAddProjectForm() {
-        return "addProjectForm";
+    public String showAddStoryboardForm() {
+        return "addStoryboardForm";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String addProject(HttpServletRequest request, Model model) {
+    public String addStoryboard(HttpServletRequest request, Model model) {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
 //        String createdBy = request.getParameter("dummyUser");
         String createdBy="Rohit";
-        boolean saveSuccess = projectService.createProject(title, description, createdBy);
+        boolean saveSuccess = storyboardService.createStoryboard(title, description, createdBy);
         model. addAttribute("message", saveSuccess ? "Success" : "Failed");
 
         return "index";

@@ -1,9 +1,7 @@
 package com.prorg.dao.impl;
 
-import com.prorg.dao.ProjectDao;
-import com.prorg.dao.UserDao;
-import com.prorg.model.Project;
-import com.prorg.model.User;
+import com.prorg.dao.StoryboardDao;
+import com.prorg.model.Storyboard;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,25 +12,25 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ProjectDaoImpl implements ProjectDao {
+public class StoryboardDaoImpl implements StoryboardDao {
 
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public ProjectDaoImpl(SessionFactory sessionFactory) {
+    public StoryboardDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Project> list() {
-        return getCurrentSession().createQuery("from Project").getResultList();
+    public List<Storyboard> list() {
+        return getCurrentSession().createQuery("from Storyboard").getResultList();
     }
 
     @Override
-    public boolean save(Project project) {
+    public boolean save(Storyboard storyboard) {
         try {
-            getCurrentSession().save(project);
+            getCurrentSession().save(storyboard);
             return true;
         } catch (HibernateException exception) {
             // TODO: Log exception

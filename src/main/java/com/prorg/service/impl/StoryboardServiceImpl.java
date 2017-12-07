@@ -1,35 +1,34 @@
 package com.prorg.service.impl;
 
 import com.prorg.model.Storyboard;
-import com.prorg.model.User;
-import com.prorg.dao.ProjectDao;
-import com.prorg.service.ProjectService;
+import com.prorg.dao.StoryboardDao;
+import com.prorg.service.StoryboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class ProjectServiceImpl implements ProjectService {
+public class StoryboardServiceImpl implements StoryboardService {
 
-    private final ProjectDao projectDao;
+    private final StoryboardDao storyboardDao;
 
     @Autowired
-    public ProjectServiceImpl(ProjectDao projectDao) {
-        this.projectDao = projectDao;
+    public StoryboardServiceImpl(StoryboardDao storyboardDao) {
+        this.storyboardDao = storyboardDao;
     }
 
 
     @Override
-    public boolean createProject(String title, String description, String createdBy){
+    public boolean createStoryboard(String title, String description, String createdBy){
         if(title.isEmpty() || description.isEmpty()){
             return false;
         }
-        Project addProject= new Project();
-        addProject.setTitle(title);
-        addProject.setDescription(description);
-        addProject.setUser_id(createdBy);
-        return projectDao.save(addProject);
+        Storyboard addStoryboard = new Storyboard();
+        addStoryboard.setTitle(title);
+        addStoryboard.setDescription(description);
+        addStoryboard.setUser_id(createdBy);
+        return storyboardDao.save(addStoryboard);
 
     }
 
