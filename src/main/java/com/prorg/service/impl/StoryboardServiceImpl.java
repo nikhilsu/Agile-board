@@ -1,6 +1,6 @@
 package com.prorg.service.impl;
 
-import com.prorg.model.Project;
+import com.prorg.model.Storyboard;
 import com.prorg.model.User;
 import com.prorg.dao.ProjectDao;
 import com.prorg.service.ProjectService;
