@@ -1,6 +1,7 @@
 package com.prorg.controller;
 
 import com.prorg.helper.Constants;
+import com.prorg.helper.QueryStatus;
 import com.prorg.service.StoryboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,9 +30,9 @@ public class StoryboardController {
     public String addStoryboard(HttpServletRequest request, HttpSession session, Model model) {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        int createdBy = (int) session.getAttribute(Constants.User.LOGGED_IN_USER_SESSION_KEY);
-        boolean saveSuccess = storyboardService.createStoryboard(title, description, createdBy);
-        model. addAttribute(Constants.ModelAttributes.MESSAGE, saveSuccess ? "Success" : "Failed");
+        int createdBy = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
+        QueryStatus save = storyboardService.createStoryboard(title, description, createdBy);
+        model. addAttribute(Constants.ModelAttributes.MESSAGE, save.isSuccessful() ? "Success" : "Failed");
 
         return Constants.RedirectPage.INDEX;
     }

@@ -1,8 +1,8 @@
 package com.prorg.helper;
 
 public class Constants {
-    public static class  User {
-        public static final String LOGGED_IN_USER_SESSION_KEY = "loggedInUser";
+    public static class SessionKeys {
+        public static final String LOGGED_IN_USER = "loggedInUser";
     }
 
     public static class ModelAttributes {

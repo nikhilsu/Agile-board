@@ -1,5 +1,6 @@
 package com.prorg.dao.impl;
 
+import com.prorg.helper.QueryStatus;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,14 +12,13 @@ public abstract class BaseDaoImpl{
         this.sessionFactory = sessionFactory;
     }
 
-    boolean save(Object object) {
+    QueryStatus save(Object object) {
         try {
-            getCurrentSession().save(object);
-            return true;
+            return QueryStatus.Success((int) getCurrentSession().save(object));
         } catch (HibernateException exception) {
             // TODO: Log exception
             System.out.println(exception.getMessage());
-            return false;
+            return QueryStatus.Failure();
         }
     }
 

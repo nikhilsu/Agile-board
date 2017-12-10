@@ -2,6 +2,7 @@ package com.prorg.service.impl;
 
 import com.prorg.dao.UserDao;
 import com.prorg.helper.Password;
+import com.prorg.helper.QueryStatus;
 import com.prorg.model.User;
 import com.prorg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean createUser(String firstName, String lastName, String email, String password, String confirmPassword) {
+    public QueryStatus createUser(String firstName, String lastName, String email, String password, String confirmPassword) {
         if (!password.equals(confirmPassword))
-            return false;
+            return QueryStatus.Failure();
         String salt = passwordHash.getNextSalt();
         String password_hash = passwordHash.hash(password, salt);
         User user = new User();
@@ -44,11 +45,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int loginUser(String email, String password) {
+    public QueryStatus loginUser(String email, String password) {
         User userByEmail = userDao.findByEmail(email);
-        if(passwordHash.isExpectedPassword(password, userByEmail.getSalt(), userByEmail.getPassword()))
-            return userByEmail.getId();
+        if(userByEmail == null || !passwordHash.isExpectedPassword(password, userByEmail.getSalt(), userByEmail.getPassword()))
+            return QueryStatus.Failure();
         else
-            return -1;
+            return QueryStatus.Success(userByEmail.getId());
     }
 }

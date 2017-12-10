@@ -1,6 +1,7 @@
 package com.prorg.dao.impl;
 
 import com.prorg.dao.UserDao;
+import com.prorg.helper.QueryStatus;
 import com.prorg.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -24,7 +25,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean save(User user) {
+    public QueryStatus save(User user) {
         return super.save(user);
     }
 
@@ -32,6 +33,10 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     public User findByEmail(String email) {
         Query query = getCurrentSession().createQuery("from User where email = :email");
         query.setParameter("email", email);
-        return (User) query.getSingleResult();
+        List resultList = query.getResultList();
+        if (resultList.isEmpty())
+            return null;
+        else
+            return (User) resultList.get(0);
     }
 }

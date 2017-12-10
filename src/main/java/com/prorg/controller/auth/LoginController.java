@@ -1,6 +1,7 @@
 package com.prorg.controller.auth;
 
 import com.prorg.helper.Constants;
+import com.prorg.helper.QueryStatus;
 import com.prorg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,14 +28,14 @@ public class LoginController {
     }
 
     @RequestMapping(value = Constants.Route.LOGIN, method = RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpSession session, Model model) {
+    public String login(HttpServletRequest request, HttpSession session, Model model) throws Exception {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        int userId = userService.loginUser(email, password);
+        QueryStatus loginUser = userService.loginUser(email, password);
         String messageOnRedirectPage;
-        if (userId != -1) {
+        if (loginUser.isSuccessful()) {
             messageOnRedirectPage = "Login Successful";
-            session.setAttribute(Constants.User.LOGGED_IN_USER_SESSION_KEY, userId);
+            session.setAttribute(Constants.SessionKeys.LOGGED_IN_USER, loginUser.serialId());
         }
         else
             messageOnRedirectPage = "Login Failed";
@@ -44,7 +45,7 @@ public class LoginController {
 
     @RequestMapping(value = Constants.Route.LOGOUT)
     public String logout(HttpSession session) {
-        session.removeAttribute(Constants.User.LOGGED_IN_USER_SESSION_KEY);
+        session.removeAttribute(Constants.SessionKeys.LOGGED_IN_USER);
         return Constants.RedirectPage.INDEX;
     }
 }
