@@ -1,19 +1,17 @@
 package com.prorg.dao.impl;
 
-import com.prorg.dao.BaseDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public abstract class BaseDaoImpl implements BaseDao {
+public abstract class BaseDaoImpl{
     private SessionFactory sessionFactory;
 
     public BaseDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
-    @Override
-    public boolean save(Object object) {
+    boolean save(Object object) {
         try {
             getCurrentSession().save(object);
             return true;
