@@ -2,22 +2,19 @@ package com.prorg.dao.impl;
 
 import com.prorg.dao.UserDao;
 import com.prorg.model.User;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
-public class UserDaoImpl implements UserDao {
-
-    private final SessionFactory sessionFactory;
+public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Autowired
     public UserDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        super(sessionFactory);
     }
 
     @Override
@@ -28,14 +25,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean save(User user) {
-        try {
-            getCurrentSession().save(user);
-            return true;
-        } catch (HibernateException exception) {
-            // TODO: Log exception
-            System.out.println(exception.getMessage());
-            return false;
-        }
+        return super.save(user);
     }
 
     @Override
@@ -43,9 +33,5 @@ public class UserDaoImpl implements UserDao {
         Query query = getCurrentSession().createQuery("from User where email = :email");
         query.setParameter("email", email);
         return (User) query.getSingleResult();
-    }
-
-    private Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
     }
 }

@@ -12,16 +12,15 @@ public class Storyboard {
     private int id;
 
     @Column(name = "title")
-    @Size(max = 255, min = 3)
+    @Size(max = 255, min = 1)
     private String title;
 
     @Column(name = "description")
-    @Size(max = 1000, min=10)
+    @Size(max = 1000)
     private String description;
 
     @Column(name = "created_by")
-    @Size(min = 1)
-    private String user_id;
+    private int userId;
 
     public int getId() {
         return id;
@@ -47,11 +46,11 @@ public class Storyboard {
         this.description = description;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

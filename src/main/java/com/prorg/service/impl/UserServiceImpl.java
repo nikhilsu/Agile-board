@@ -44,8 +44,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean loginUser(String email, String password) {
+    public int loginUser(String email, String password) {
         User userByEmail = userDao.findByEmail(email);
-        return passwordHash.isExpectedPassword(password, userByEmail.getSalt(), userByEmail.getPassword());
+        if(passwordHash.isExpectedPassword(password, userByEmail.getSalt(), userByEmail.getPassword()))
+            return userByEmail.getId();
+        else
+            return -1;
     }
 }

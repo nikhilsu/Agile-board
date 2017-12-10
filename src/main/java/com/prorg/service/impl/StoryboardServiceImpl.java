@@ -20,14 +20,13 @@ public class StoryboardServiceImpl implements StoryboardService {
 
 
     @Override
-    public boolean createStoryboard(String title, String description, String createdBy){
-        if(title.isEmpty() || description.isEmpty()){
+    public boolean createStoryboard(String title, String description, int createdBy){
+        if(title.isEmpty())
             return false;
-        }
         Storyboard addStoryboard = new Storyboard();
         addStoryboard.setTitle(title);
         addStoryboard.setDescription(description);
-        addStoryboard.setUser_id(createdBy);
+        addStoryboard.setUserId(createdBy);
         return storyboardDao.save(addStoryboard);
 
     }

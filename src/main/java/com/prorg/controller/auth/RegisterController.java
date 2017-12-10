@@ -1,5 +1,6 @@
 package com.prorg.controller.auth;
 
+import com.prorg.helper.Constants;
 import com.prorg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/register")
+@RequestMapping(Constants.Route.REGISTER)
 public class RegisterController {
     @Autowired
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showRegistrationForm() {
-        return "registrationForm";
+        return Constants.RedirectPage.REGISTRATION_FORM;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -28,8 +29,8 @@ public class RegisterController {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
         boolean saveSuccess = userService.createUser(firstName, lastName, email, password, confirmPassword);
-        model. addAttribute("message", saveSuccess ? "Success" : "Failed");
+        model. addAttribute(Constants.ModelAttributes.MESSAGE, saveSuccess ? "Success" : "Failed");
 
-        return "index";
+        return Constants.RedirectPage.INDEX;
     }
 }

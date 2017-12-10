@@ -2,23 +2,18 @@ package com.prorg.dao.impl;
 
 import com.prorg.dao.StoryboardDao;
 import com.prorg.model.Storyboard;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class StoryboardDaoImpl implements StoryboardDao {
-
-    private final SessionFactory sessionFactory;
+public class StoryboardDaoImpl extends BaseDaoImpl implements StoryboardDao {
 
     @Autowired
     public StoryboardDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        super(sessionFactory);
     }
 
     @Override
@@ -29,18 +24,6 @@ public class StoryboardDaoImpl implements StoryboardDao {
 
     @Override
     public boolean save(Storyboard storyboard) {
-        try {
-            getCurrentSession().save(storyboard);
-            return true;
-        } catch (HibernateException exception) {
-            // TODO: Log exception
-            System.out.println(exception.getMessage());
-            return false;
-        }
-    }
-
-
-    private Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
+        return super.save(storyboard);
     }
 }
