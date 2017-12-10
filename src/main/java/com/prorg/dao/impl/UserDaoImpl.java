@@ -39,4 +39,9 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         else
             return (User) resultList.get(0);
     }
+
+    @Override
+    public User findById(int userId) {
+        return getCurrentSession().get(User.class, userId);
+    }
 }

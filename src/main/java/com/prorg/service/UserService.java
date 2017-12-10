@@ -9,4 +9,5 @@ public interface UserService {
     List<User> list();
     QueryStatus createUser(String firstName, String lastName, String email, String password, String confirmPassword);
     QueryStatus loginUser(String email, String password);
+    User getUserById(int userId);
 }

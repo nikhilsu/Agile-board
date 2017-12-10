@@ -2,7 +2,9 @@ package com.prorg.controller;
 
 import com.prorg.helper.Constants;
 import com.prorg.helper.QueryStatus;
+import com.prorg.model.User;
 import com.prorg.service.StoryboardService;
+import com.prorg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +19,12 @@ import javax.servlet.http.HttpSession;
 public class StoryboardController {
 
     private StoryboardService storyboardService;
+    private UserService userService;
+
     @Autowired
-    public StoryboardController(StoryboardService storyboardService) {
+    public StoryboardController(StoryboardService storyboardService, UserService userService) {
         this.storyboardService = storyboardService;
+        this.userService = userService;
     }
     @RequestMapping(method = RequestMethod.GET)
     public String showAddStoryboardForm() {
@@ -30,8 +35,9 @@ public class StoryboardController {
     public String addStoryboard(HttpServletRequest request, HttpSession session, Model model) {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        int createdBy = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
-        QueryStatus save = storyboardService.createStoryboard(title, description, createdBy);
+        int createdById = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
+        User createdByUser = userService.getUserById(createdById);
+        QueryStatus save = storyboardService.createStoryboard(title, description, createdByUser);
         model. addAttribute(Constants.ModelAttributes.MESSAGE, save.isSuccessful() ? "Success" : "Failed");
 
         return Constants.RedirectPage.INDEX;

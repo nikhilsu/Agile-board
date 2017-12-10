@@ -19,8 +19,9 @@ public class Storyboard {
     @Size(max = 1000)
     private String description;
 
-    @Column(name = "created_by")
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private User createdBy;
 
     public int getId() {
         return id;
@@ -46,11 +47,11 @@ public class Storyboard {
         this.description = description;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getCreatedBy() {
+        return createdBy;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setCreatedBy(User userId) {
+        this.createdBy = userId;
     }
 }

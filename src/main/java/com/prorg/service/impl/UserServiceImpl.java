@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
         else
             return QueryStatus.Success(userByEmail.getId());
     }
+
+    @Override
+    public User getUserById(int userId) {
+        return userDao.findById(userId);
+    }
 }

@@ -3,6 +3,7 @@ package com.prorg.service.impl;
 import com.prorg.helper.QueryStatus;
 import com.prorg.model.Storyboard;
 import com.prorg.dao.StoryboardDao;
+import com.prorg.model.User;
 import com.prorg.service.StoryboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,13 +22,13 @@ public class StoryboardServiceImpl implements StoryboardService {
 
 
     @Override
-    public QueryStatus createStoryboard(String title, String description, int createdBy){
+    public QueryStatus createStoryboard(String title, String description, User createdBy){
         if(title.isEmpty())
             return QueryStatus.Failure();
         Storyboard addStoryboard = new Storyboard();
         addStoryboard.setTitle(title);
         addStoryboard.setDescription(description);
-        addStoryboard.setUserId(createdBy);
+        addStoryboard.setCreatedBy(createdBy);
         return storyboardDao.save(addStoryboard);
     }
 }

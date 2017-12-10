@@ -9,4 +9,5 @@ public interface UserDao {
     List<User> list();
     QueryStatus save(User user);
     User findByEmail(String email);
+    User findById(int userId);
 }
