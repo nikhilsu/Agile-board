@@ -28,13 +28,19 @@ public class StoryboardServiceImpl implements StoryboardService {
     @Override
     public Response createStoryboard(String title, String description, User createdBy){
         Storyboard storyBoardToAdd = new Storyboard();
-        storyBoardToAdd.setTitle(title);
-        storyBoardToAdd.setDescription(description);
-        storyBoardToAdd.setCreatedBy(createdBy);
+        storyBoardToAdd.setTitle(title)
+                       .setDescription(description)
+                       .setCreatedBy(createdBy);
         ValidationResponse validationResponse = validator.validate(storyBoardToAdd);
         if (!validationResponse.isValid()) {
             return Response.Failure(validationResponse.errors());
         }
         return storyboardDao.save(storyBoardToAdd);
+    }
+
+    @Override
+    public Response getStoryboardById(int storyboardId) throws Exception {
+        Response queryResponse = storyboardDao.findById(storyboardId);
+        return Response.Success(queryResponse.data());
     }
 }

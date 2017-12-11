@@ -16,6 +16,7 @@ public class Constants {
         public static final String LOGOUT = "/logout";
         public static final String REGISTER = "/register";
         public static final String ROOT = "/";
+        public static final String ADD_SWIMLANE = "/addSwimlane";
     }
 
     public static class RedirectPage {
