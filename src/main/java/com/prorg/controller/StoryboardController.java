@@ -26,22 +26,31 @@ public class StoryboardController {
         this.storyboardService = storyboardService;
         this.userService = userService;
     }
+
     @RequestMapping(method = RequestMethod.GET)
-    public String showAddStoryboardForm() {
-        return Constants.RedirectPage.STORY_BOARD_FORM;
+    public String showAddStoryboardForm(HttpSession session) {
+        if (isUserLoggedIn(session))
+            return Constants.RedirectPage.STORY_BOARD_FORM;
+        else
+            return Constants.RedirectPage.INDEX;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String addStoryboard(HttpServletRequest request, HttpSession session, Model model) throws Exception {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        int createdById = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
-        Response response = userService.getUserById(createdById);
-        // TODO: Add of check for response failure.
-        User createdByUser = (User) response.data();
-        Response save = storyboardService.createStoryboard(title, description, createdByUser);
-        model. addAttribute(Constants.ModelAttributes.MESSAGE, save.isSuccessful() ? "Success" : "Failed");
-
+        if (isUserLoggedIn(session)) {
+            int createdById = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
+            Response response = userService.getUserById(createdById);
+            // TODO: Add of check for response failure.
+            User createdByUser = (User) response.data();
+            Response save = storyboardService.createStoryboard(title, description, createdByUser);
+            model.addAttribute(Constants.ModelAttributes.MESSAGE, save.isSuccessful() ? "Success" : "Failed");
+        }
         return Constants.RedirectPage.INDEX;
+    }
+
+    private boolean isUserLoggedIn(HttpSession session) {
+        return session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER) != null;
     }
 }
