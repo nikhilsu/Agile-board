@@ -11,12 +11,13 @@ public class Constants {
     }
 
     public static class Route {
-        public static final String ADD_STORYBOARD = "/addStoryboard";
         public static final String LOGIN = "/login";
         public static final String LOGOUT = "/logout";
         public static final String REGISTER = "/register";
         public static final String ROOT = "/";
+        public static final String ADD_STORYBOARD = "/addStoryboard";
         public static final String ADD_SWIMLANE = "/addSwimlane";
+        public static final String ADD_CARD = "/addCard";
     }
 
     public static class RedirectPage {

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping(Constants.Route.ADD_SWIMLANE)
+@RequestMapping(Constants.Route.ADD_CARD)
 public class CardController {
 
     private CardService cardService;
