@@ -1,13 +1,14 @@
 package com.prorg.dao.impl;
 
 import com.prorg.dao.UserDao;
-import com.prorg.helper.QueryStatus;
+import com.prorg.helper.result.Response;
 import com.prorg.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -25,23 +26,23 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
 
     @Override
-    public QueryStatus save(User user) {
+    public Response save(User user) {
         return super.save(user);
     }
 
     @Override
-    public User findByEmail(String email) {
+    public Response findByEmail(String email) {
         Query query = getCurrentSession().createQuery("from User where email = :email");
         query.setParameter("email", email);
-        List resultList = query.getResultList();
-        if (resultList.isEmpty())
-            return null;
-        else
-            return (User) resultList.get(0);
+        try {
+            return Response.Success(query.getSingleResult());
+        } catch (Exception exception) {
+            return Response.Failure(Collections.singletonList(exception.getMessage()));
+        }
     }
 
     @Override
-    public User findById(int userId) {
-        return getCurrentSession().get(User.class, userId);
+    public Response findById(int userId) {
+        return Response.Success(getCurrentSession().get(User.class, userId));
     }
 }

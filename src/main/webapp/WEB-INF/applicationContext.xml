@@ -60,5 +60,8 @@
 
     <bean id="random" class="java.security.SecureRandom" />
     <bean id="password" class="com.prorg.helper.Password" />
+    <bean id="validatorFactory" class="javax.validation.Validation" factory-method="buildDefaultValidatorFactory" />
+    <bean id="validator" factory-bean="validatorFactory" factory-method="getValidator" />
+    <bean id="modelValidator" class="com.prorg.helper.validator.ModelValidator" />
 
 </beans>

@@ -1,6 +1,8 @@
 package com.prorg.service.impl;
 
-import com.prorg.helper.QueryStatus;
+import com.prorg.helper.result.Response;
+import com.prorg.helper.result.ValidationResponse;
+import com.prorg.helper.validator.ModelValidator;
 import com.prorg.model.Storyboard;
 import com.prorg.dao.StoryboardDao;
 import com.prorg.model.User;
@@ -14,21 +16,25 @@ import org.springframework.transaction.annotation.Transactional;
 public class StoryboardServiceImpl implements StoryboardService {
 
     private final StoryboardDao storyboardDao;
+    private final ModelValidator validator;
 
     @Autowired
-    public StoryboardServiceImpl(StoryboardDao storyboardDao) {
+    public StoryboardServiceImpl(StoryboardDao storyboardDao, ModelValidator validator) {
         this.storyboardDao = storyboardDao;
+        this.validator = validator;
     }
 
 
     @Override
-    public QueryStatus createStoryboard(String title, String description, User createdBy){
-        if(title.isEmpty())
-            return QueryStatus.Failure();
-        Storyboard addStoryboard = new Storyboard();
-        addStoryboard.setTitle(title);
-        addStoryboard.setDescription(description);
-        addStoryboard.setCreatedBy(createdBy);
-        return storyboardDao.save(addStoryboard);
+    public Response createStoryboard(String title, String description, User createdBy){
+        Storyboard storyBoardToAdd = new Storyboard();
+        storyBoardToAdd.setTitle(title);
+        storyBoardToAdd.setDescription(description);
+        storyBoardToAdd.setCreatedBy(createdBy);
+        ValidationResponse validationResponse = validator.validate(storyBoardToAdd);
+        if (!validationResponse.isValid()) {
+            return Response.Failure(validationResponse.errors());
+        }
+        return storyboardDao.save(storyBoardToAdd);
     }
 }

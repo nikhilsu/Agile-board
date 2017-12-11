@@ -1,7 +1,7 @@
 package com.prorg.dao.impl;
 
 import com.prorg.dao.StoryboardDao;
-import com.prorg.helper.QueryStatus;
+import com.prorg.helper.result.Response;
 import com.prorg.model.Storyboard;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class StoryboardDaoImpl extends BaseDaoImpl implements StoryboardDao {
     }
 
     @Override
-    public QueryStatus save(Storyboard storyboard) {
+    public Response save(Storyboard storyboard) {
         return super.save(storyboard);
     }
 }

@@ -2,13 +2,17 @@ package com.prorg.service.impl;
 
 import com.prorg.dao.UserDao;
 import com.prorg.helper.Password;
-import com.prorg.helper.QueryStatus;
+import com.prorg.helper.result.Response;
+import com.prorg.helper.validator.ModelValidator;
+import com.prorg.helper.result.ValidationResponse;
 import com.prorg.model.User;
 import com.prorg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,12 +20,14 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
-    private Password passwordHash;
+    private final Password passwordHash;
+    private final ModelValidator modelValidator;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao, Password passwordHash) {
+    public UserServiceImpl(UserDao userDao, Password passwordHash, ModelValidator modelValidator) {
         this.userDao = userDao;
         this.passwordHash = passwordHash;
+        this.modelValidator = modelValidator;
     }
 
     @Override
@@ -30,31 +36,40 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public QueryStatus createUser(String firstName, String lastName, String email, String password, String confirmPassword) {
-        if (!password.equals(confirmPassword))
-            return QueryStatus.Failure();
+    public Response createUser(String firstName, String lastName,
+                               String email, String password,
+                               String confirmPassword) {
         String salt = passwordHash.getNextSalt();
         String password_hash = passwordHash.hash(password, salt);
         User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setSalt(salt);
-        user.setPassword(password_hash);
+        user.setFirstName(firstName)
+            .setLastName(lastName)
+            .setEmail(email)
+            .setPassword(password)
+            .setConfirmPassword(confirmPassword)
+            .setSalt(salt)
+            .setPasswordHash(password_hash);
+        ValidationResponse userValidationResponse = modelValidator.validate(user);
+        if (!userValidationResponse.isValid())
+            return Response.Failure(userValidationResponse.errors());
         return userDao.save(user);
     }
 
     @Override
-    public QueryStatus loginUser(String email, String password) {
-        User userByEmail = userDao.findByEmail(email);
-        if(userByEmail == null || !passwordHash.isExpectedPassword(password, userByEmail.getSalt(), userByEmail.getPassword()))
-            return QueryStatus.Failure();
-        else
-            return QueryStatus.Success(userByEmail.getId());
+    public Response loginUser(String email, String password) throws Exception {
+        Response response = userDao.findByEmail(email);
+        if(!response.isSuccessful() || response.data() == null)
+            return Response.Failure(Collections.singletonList("User not found."));
+        User user = (User) response.data();
+        ValidationResponse validationResponse = modelValidator.validate(user.setPassword(password).setConfirmPassword(password));
+        if (!validationResponse.isValid())
+            return Response.Failure(validationResponse.errors());
+        return Response.Success(user.getId());
     }
 
     @Override
-    public User getUserById(int userId) {
-        return userDao.findById(userId);
+    public Response getUserById(int userId) throws Exception {
+        Response queryResponse = userDao.findById(userId);
+        return Response.Success(queryResponse.data());
     }
 }

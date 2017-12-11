@@ -1,7 +1,7 @@
 package com.prorg.controller.auth;
 
 import com.prorg.helper.Constants;
-import com.prorg.helper.QueryStatus;
+import com.prorg.helper.result.Response;
 import com.prorg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,11 +31,11 @@ public class LoginController {
     public String login(HttpServletRequest request, HttpSession session, Model model) throws Exception {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        QueryStatus loginUser = userService.loginUser(email, password);
+        Response response = userService.loginUser(email, password);
         String messageOnRedirectPage;
-        if (loginUser.isSuccessful()) {
+        if (response.isSuccessful()) {
             messageOnRedirectPage = "Login Successful";
-            session.setAttribute(Constants.SessionKeys.LOGGED_IN_USER, loginUser.serialId());
+            session.setAttribute(Constants.SessionKeys.LOGGED_IN_USER, response.data());
         }
         else
             messageOnRedirectPage = "Login Failed";

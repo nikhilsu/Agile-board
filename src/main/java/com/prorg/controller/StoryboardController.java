@@ -1,7 +1,7 @@
 package com.prorg.controller;
 
 import com.prorg.helper.Constants;
-import com.prorg.helper.QueryStatus;
+import com.prorg.helper.result.Response;
 import com.prorg.model.User;
 import com.prorg.service.StoryboardService;
 import com.prorg.service.UserService;
@@ -32,12 +32,14 @@ public class StoryboardController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String addStoryboard(HttpServletRequest request, HttpSession session, Model model) {
+    public String addStoryboard(HttpServletRequest request, HttpSession session, Model model) throws Exception {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         int createdById = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
-        User createdByUser = userService.getUserById(createdById);
-        QueryStatus save = storyboardService.createStoryboard(title, description, createdByUser);
+        Response response = userService.getUserById(createdById);
+        // TODO: Add of check for response failure.
+        User createdByUser = (User) response.data();
+        Response save = storyboardService.createStoryboard(title, description, createdByUser);
         model. addAttribute(Constants.ModelAttributes.MESSAGE, save.isSuccessful() ? "Success" : "Failed");
 
         return Constants.RedirectPage.INDEX;

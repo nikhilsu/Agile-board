@@ -1,8 +1,13 @@
 package com.prorg.model;
 
+import com.prorg.helper.contraint.FieldMatch;
+import com.prorg.helper.contraint.PasswordHashMatch;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
+@FieldMatch(first = "password", second = "confirmPassword")
+@PasswordHashMatch(passwordHash = "passwordHash", passwordSalt = "salt", passwordString = "password")
 @Entity
 @Table(name = "user_details")
 public class User {
@@ -19,7 +24,7 @@ public class User {
     @Size(max = 255, min = 1)
     private String lastName;
 
-    @Column
+    @Column(unique = true)
     @Size(max = 255, min = 7)
     private String email;
 
@@ -27,47 +32,76 @@ public class User {
     private String salt;
 
     @Column(name = "passwd_hash")
+    private String passwordHash;
+
+    @Transient
     private String password;
+
+    @Transient
+    private String confirmPassword;
 
     public int getId() {
         return id;
     }
-    public void setId(int id) {
+    public User setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getFirstName() {
         return firstName;
     }
-    public void setFirstName(String firstName) {
+    public User setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
-    public void setLastName(String lastName) {
+    public User setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
+        return this;
+
     }
 
     public String getSalt() {
         return salt;
     }
-    public void setSalt(String salt) {
+    public User setSalt(String salt) {
         this.salt = salt;
+        return this;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+    public User setPasswordHash(String password) {
+        this.passwordHash = password;
+        return this;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+    public User setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
     }
 }

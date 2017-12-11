@@ -54,6 +54,9 @@ dependencies {
 
     // jstl
     compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+
+    // commons-beanutils
+    compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.8.3'
 }
 
 idea {

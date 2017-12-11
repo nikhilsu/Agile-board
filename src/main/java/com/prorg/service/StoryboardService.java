@@ -1,8 +1,8 @@
 package com.prorg.service;
 
-import com.prorg.helper.QueryStatus;
+import com.prorg.helper.result.Response;
 import com.prorg.model.User;
 
 public interface StoryboardService {
-    QueryStatus createStoryboard(String title, String description, User createdBy);
+    Response createStoryboard(String title, String description, User createdBy);
 }

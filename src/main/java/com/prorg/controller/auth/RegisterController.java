@@ -1,7 +1,7 @@
 package com.prorg.controller.auth;
 
 import com.prorg.helper.Constants;
-import com.prorg.helper.QueryStatus;
+import com.prorg.helper.result.Response;
 import com.prorg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,10 +30,10 @@ public class RegisterController {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-        QueryStatus save = userService.createUser(firstName, lastName, email, password, confirmPassword);
+        Response save = userService.createUser(firstName, lastName, email, password, confirmPassword);
         String redirectMessage = "Failed";
         if (save.isSuccessful()) {
-            session.setAttribute(Constants.SessionKeys.LOGGED_IN_USER, save.serialId());
+            session.setAttribute(Constants.SessionKeys.LOGGED_IN_USER, save.data());
             redirectMessage = "Success";
         }
 
