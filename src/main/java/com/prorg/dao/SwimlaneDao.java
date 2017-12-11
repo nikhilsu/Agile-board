@@ -5,4 +5,5 @@ import com.prorg.model.Swimlane;
 
 public interface SwimlaneDao {
     Response save(Swimlane swimlane);
+    Response findById(int swimlaneId);
 }

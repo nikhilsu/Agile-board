@@ -5,4 +5,5 @@ import com.prorg.model.Storyboard;
 
 public interface SwimlaneService {
     Response createSwimlane(String name, Storyboard itsStoryBoard);
+    Response getSwimlaneById(int swimlaneId) throws Exception;
 }

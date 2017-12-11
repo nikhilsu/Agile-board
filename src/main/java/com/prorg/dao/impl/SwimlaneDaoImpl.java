@@ -19,4 +19,9 @@ public class SwimlaneDaoImpl extends BaseDaoImpl implements SwimlaneDao {
     public Response save(Swimlane swimlane) {
         return super.save(swimlane);
     }
+
+    @Override
+    public Response findById(int swimlaneId) {
+        return Response.Success(getCurrentSession().get(Swimlane.class, swimlaneId));
+    }
 }

@@ -35,4 +35,10 @@ public class SwimlaneServiceImpl implements SwimlaneService {
         }
         return swimlaneDao.save(swimlaneToAdd);
     }
+
+    @Override
+    public Response getSwimlaneById(int swimlaneId) throws Exception {
+        Response queryResponse = swimlaneDao.findById(swimlaneId);
+        return Response.Success(queryResponse.data());
+    }
 }

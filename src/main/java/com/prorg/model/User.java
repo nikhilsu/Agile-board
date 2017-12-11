@@ -2,6 +2,7 @@ package com.prorg.model;
 
 import com.prorg.helper.contraint.FieldMatch;
 import com.prorg.helper.contraint.PasswordHashMatch;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -24,6 +25,7 @@ public class User {
     @Size(max = 255, min = 1)
     private String lastName;
 
+    @Email
     @Column(unique = true)
     @Size(max = 255, min = 7)
     private String email;
