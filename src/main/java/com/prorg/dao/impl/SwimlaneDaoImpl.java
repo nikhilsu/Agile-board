@@ -24,4 +24,14 @@ public class SwimlaneDaoImpl extends BaseDaoImpl implements SwimlaneDao {
     public Response findById(int swimlaneId) {
         return Response.Success(getCurrentSession().get(Swimlane.class, swimlaneId));
     }
+
+    @Override
+    public Response deleteById(int swimlaneId) {
+        return super.delete(getCurrentSession().get(Swimlane.class, swimlaneId));
+    }
+
+    @Override
+    public Response update(Swimlane swimlane) {
+        return super.update(swimlane);
+    }
 }

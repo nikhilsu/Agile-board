@@ -32,4 +32,14 @@ public class StoryboardDaoImpl extends BaseDaoImpl implements StoryboardDao {
     public Response findById(int storyboardId) {
         return Response.Success(getCurrentSession().get(Storyboard.class, storyboardId));
     }
+
+    @Override
+    public Response deleteById(int storyboardId) {
+        return super.delete(getCurrentSession().get(Storyboard.class, storyboardId));
+    }
+
+    @Override
+    public Response update(Storyboard storyboard) {
+        return super.update(storyboard);
+    }
 }

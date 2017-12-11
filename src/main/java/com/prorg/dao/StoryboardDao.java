@@ -9,4 +9,6 @@ public interface StoryboardDao {
     List<Storyboard> list();
     Response save(Storyboard storyboard);
     Response findById(int storyboardId);
+    Response deleteById(int storyboardId);
+    Response update(Storyboard storyboard);
 }

@@ -17,4 +17,14 @@ public class CardDaoImpl extends BaseDaoImpl implements CardDao {
     public Response save(Card card) {
         return super.save(card);
     }
+
+    @Override
+    public Response deleteByCardId(int cardId) {
+        return super.delete(getCurrentSession().get(Card.class, cardId));
+    }
+
+    @Override
+    public Response update(Card card) {
+        return super.update(card);
+    }
 }

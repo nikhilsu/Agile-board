@@ -7,20 +7,40 @@ import org.hibernate.SessionFactory;
 
 import java.util.Collections;
 
-public abstract class BaseDaoImpl{
+public abstract class BaseDaoImpl {
     private SessionFactory sessionFactory;
 
     public BaseDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
-    Response save(Object object) {
+    Response save(Object model) {
         try {
-            int serialId = (int) getCurrentSession().save(object);
+            int serialId = (int) getCurrentSession().save(model);
             return Response.Success(serialId);
         } catch (HibernateException exception) {
             // TODO: Log exception
             System.out.println(exception.getMessage());
+            return Response.Failure(Collections.singletonList(exception.getMessage()));
+        }
+    }
+
+    Response update(Object model) {
+        try {
+            getCurrentSession().update(model);
+            return Response.Success(new Object());
+        } catch (HibernateException exception) {
+            return Response.Failure(Collections.singletonList(exception.getMessage()));
+        }
+    }
+
+    Response delete(Object model) {
+        try {
+            Session currentSession = getCurrentSession();
+            currentSession.delete(model);
+            currentSession.flush();
+            return Response.Success(new Object());
+        } catch (Exception exception) {
             return Response.Failure(Collections.singletonList(exception.getMessage()));
         }
     }
