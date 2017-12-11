@@ -27,4 +27,9 @@ public class CardDaoImpl extends BaseDaoImpl implements CardDao {
     public Response update(Card card) {
         return super.update(card);
     }
+
+    @Override
+    public Response findById(int cardId) {
+        return Response.Success(getCurrentSession().get(Card.class, cardId));
+    }
 }

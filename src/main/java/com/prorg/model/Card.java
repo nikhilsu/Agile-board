@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "card")
@@ -28,7 +29,8 @@ public class Card {
     @JoinColumn(name = "swimlane_id", nullable = false)
     private Swimlane swimlane;
 
-    // TODO: AssignedUsers
+    @ManyToMany(mappedBy = "cards")
+    private List<User> assignedUser;
 
     public int getId() {
         return id;
@@ -59,6 +61,14 @@ public class Card {
     }
     public Card setSwimlane(Swimlane swimlane) {
         this.swimlane = swimlane;
+        return this;
+    }
+
+    public List<User> getAssignedUser() {
+        return assignedUser;
+    }
+    public Card setAssignedUser(List<User> assignedUser) {
+        this.assignedUser = assignedUser;
         return this;
     }
 }

@@ -28,7 +28,7 @@ public abstract class BaseDaoImpl {
     Response update(Object model) {
         try {
             getCurrentSession().update(model);
-            return Response.Success(new Object());
+            return Response.SuccessEmptyPayload();
         } catch (HibernateException exception) {
             return Response.Failure(Collections.singletonList(exception.getMessage()));
         }
@@ -39,7 +39,7 @@ public abstract class BaseDaoImpl {
             Session currentSession = getCurrentSession();
             currentSession.delete(model);
             currentSession.flush();
-            return Response.Success(new Object());
+            return Response.SuccessEmptyPayload();
         } catch (Exception exception) {
             return Response.Failure(Collections.singletonList(exception.getMessage()));
         }

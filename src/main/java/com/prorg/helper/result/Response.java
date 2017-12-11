@@ -13,6 +13,10 @@ public class Response<T> {
         this.errors = errors;
     }
 
+    public static <T> Response SuccessEmptyPayload() {
+        return Success(new Object());
+    }
+
     public static <T> Response Success(T result) {
         return new Response<>(result, new ArrayList<>());
     }

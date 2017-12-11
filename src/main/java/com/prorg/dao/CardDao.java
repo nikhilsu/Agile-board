@@ -7,4 +7,5 @@ public interface CardDao {
     Response save(Card card);
     Response deleteByCardId(int cardId);
     Response update(Card card);
+    Response findById(int cardId);
 }

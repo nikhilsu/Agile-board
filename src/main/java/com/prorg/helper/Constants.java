@@ -18,6 +18,7 @@ public class Constants {
         public static final String ADD_STORYBOARD = "/addStoryboard";
         public static final String ADD_SWIMLANE = "/addSwimlane";
         public static final String ADD_CARD = "/addCard";
+        public static final String UPDATE_USERS_OF_CARD = "/card/{id}/users";
     }
 
     public static class RedirectPage {

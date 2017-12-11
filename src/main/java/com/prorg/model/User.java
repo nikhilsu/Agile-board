@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @FieldMatch(first = "password", second = "confirmPassword")
 @PasswordHashMatch(passwordHash = "passwordHash", passwordSalt = "salt", passwordString = "password")
@@ -41,6 +42,14 @@ public class User {
 
     @Transient
     private String confirmPassword;
+
+    @ManyToMany(cascade = { CascadeType.ALL})
+    @JoinTable(
+            name = "card_user",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "card_id")}
+    )
+    private List<Card> cards;
 
     public int getId() {
         return id;
@@ -104,6 +113,14 @@ public class User {
     }
     public User setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+    public User setCards(List<Card> cards) {
+        this.cards = cards;
         return this;
     }
 }
