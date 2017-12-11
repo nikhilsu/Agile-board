@@ -9,7 +9,7 @@
 </head>
 <body class="app-color">
 <div class="text-center image-logo"><img src="images/logo.png" alt="Smiley face" ></div>
-<h1 class="color-white text-center app-font "> Sign up now</h1>
+<h1 class="heading-color text-center app-font "> Sign up now</h1>
 <div class="flex-center">
 
     <div class="login-box inline-flex">

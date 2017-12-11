@@ -1,15 +1,24 @@
 /*App CSS*/
 .app-color{
-    background-color: #2A363F;
+    background-color: #F5F5F5;
+}
+.home-margin{
+    margin:0;
 }
 .app-font, .app-font input{
     font-family: 'Vollkorn SC', serif;
+}
+.heading-color{
+    color:#224B5B;
 }
 .text-center{
     text-align: center;
 }
 .color-white{
     color:#fff;
+}
+.color-black{
+    color:#000000;
 }
 .image-logo{
     margin-top: 50px;
@@ -52,4 +61,58 @@
 }
 .sign-notamember a{
     color:#999;
+}
+
+/*HomePage CSS*/
+.header-login{
+    justify-content: flex-end;
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: 100px 800px 100px;
+}
+.login-button-header input{
+    background-color: #0f9ba8;
+    color: white !important;
+}
+.text-box-header input{
+    box-sizing: border-box;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    padding: 8px 10px;
+    margin-right: 10px;
+    color: #444;
+    outline: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.width-30{
+    width:30%;
+}
+.width-70{
+    width:70%;
+}
+header {
+    background-color: #1ea9b5;
+    grid-column: span 10;
+}
+aside {
+    grid-column: span 5;
+    background-color: #F5F5F5;
+}
+main {
+    grid-column: span 5;
+    background-color: #F5F5F5;
+}
+footer {
+    grid-column: span 10;
+    background-color: #1ea9b5;
+}
+.register-now{
+    height: 80px;
+    font-size: 50px;
+    margin-top: 50px;
 }
