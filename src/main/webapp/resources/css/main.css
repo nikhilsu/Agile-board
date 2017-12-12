@@ -36,6 +36,31 @@
     display: flex;
     justify-content: center;
 }
+.storyboard-text-box{
+    text-align: center;
+}
+.storyboard-text-box input{
+    box-sizing: border-box;
+    border: none;
+    border-radius: 6px;
+    margin:10px auto;
+    color: #444;
+    outline: none;
+    text-align: center;
+}
+
+.storyboard-button input{
+    background-color: #1ea9b5;
+    border: none;
+    color:white;
+    font-weight: bold;
+}
+.storyboard-button-1 input{
+    background-color: #1792b5;
+    border: none;
+    color:white;
+    font-weight: bold;
+}
 .text-box input{
     width: 100%;
     box-sizing: border-box;
@@ -122,16 +147,32 @@ footer {
     padding: 10px;
     display: inline-block;
     width: 200px;
-    height: 500px;
     margin-right: 10px;
+    border-radius: 5px;
 }
 
 .swimlane-title {
     font-weight: bold;
 }
+.card-form {
+    background-color: #51b5ab;
+    margin-top: 5px;
+    border: 2px solid #7c7c7c;
+    border-radius: 5px;
+}
+.card-list{
 
+}
 .create-card {
+    background-color: #46baae;
     border: black solid 2px;
     padding: 10px;
     display: inline-block;
+}
+.add-swimlane{
+    width: 19%;
+    background-color: #1ea9b5;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
 }
