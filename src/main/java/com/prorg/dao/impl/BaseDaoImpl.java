@@ -14,9 +14,9 @@ public abstract class BaseDaoImpl {
         this.sessionFactory = sessionFactory;
     }
 
-    Response save(Object model) {
+    Response<Integer> save(Object model) {
         try {
-            int serialId = (int) getCurrentSession().save(model);
+            Integer serialId = (Integer) getCurrentSession().save(model);
             return Response.Success(serialId);
         } catch (HibernateException exception) {
             // TODO: Log exception

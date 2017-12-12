@@ -14,7 +14,7 @@ public class CardDaoImpl extends BaseDaoImpl implements CardDao {
     }
 
     @Override
-    public Response save(Card card) {
+    public Response<Integer> save(Card card) {
         return super.save(card);
     }
 
@@ -29,7 +29,7 @@ public class CardDaoImpl extends BaseDaoImpl implements CardDao {
     }
 
     @Override
-    public Response findById(int cardId) {
+    public Response<Card> findById(int cardId) {
         return Response.Success(getCurrentSession().get(Card.class, cardId));
     }
 }

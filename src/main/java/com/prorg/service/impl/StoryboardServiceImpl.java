@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -28,7 +29,7 @@ public class StoryboardServiceImpl implements StoryboardService {
 
 
     @Override
-    public Response createStoryboard(String title, String description, User createdBy){
+    public Response<Integer> createStoryboard(String title, String description, User createdBy){
         Storyboard storyBoardToAdd = new Storyboard();
         storyBoardToAdd.setTitle(title)
                        .setDescription(description)
@@ -41,8 +42,8 @@ public class StoryboardServiceImpl implements StoryboardService {
     }
 
     @Override
-    public Response getStoryboardById(int storyboardId) throws Exception {
-        Response queryResponse = storyboardDao.findById(storyboardId);
+    public Response<Storyboard> getStoryboardById(int storyboardId) throws Exception {
+        Response<Storyboard> queryResponse = storyboardDao.findById(storyboardId);
         return Response.Success(queryResponse.data());
     }
 
@@ -57,8 +58,8 @@ public class StoryboardServiceImpl implements StoryboardService {
     }
 
     @Override
-    public Response getStoryboardGivenItsCreator(User creator) throws Exception {
-        Response response = storyboardDao.findByCreator(creator);
+    public Response<List<Storyboard>> getStoryboardGivenItsCreator(User creator) throws Exception {
+        Response<List<Storyboard>> response = storyboardDao.findByCreator(creator);
         if (!response.isSuccessful())
             return response;
         return Response.Success(response.data());

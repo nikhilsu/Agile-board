@@ -4,8 +4,8 @@ import com.prorg.helper.result.Response;
 import com.prorg.model.Card;
 
 public interface CardDao {
-    Response save(Card card);
+    Response<Integer> save(Card card);
     Response deleteByCardId(int cardId);
     Response update(Card card);
-    Response findById(int cardId);
+    Response<Card> findById(int cardId);
 }

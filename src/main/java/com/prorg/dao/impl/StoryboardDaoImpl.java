@@ -29,12 +29,12 @@ public class StoryboardDaoImpl extends BaseDaoImpl implements StoryboardDao {
     }
 
     @Override
-    public Response save(Storyboard storyboard) {
+    public Response<Integer> save(Storyboard storyboard) {
         return super.save(storyboard);
     }
 
     @Override
-    public Response findById(int storyboardId) {
+    public Response<Storyboard> findById(int storyboardId) {
         return Response.Success(getCurrentSession().get(Storyboard.class, storyboardId));
     }
 
@@ -49,11 +49,12 @@ public class StoryboardDaoImpl extends BaseDaoImpl implements StoryboardDao {
     }
 
     @Override
-    public Response findByCreator(User creator) {
+    @SuppressWarnings("unchecked")
+    public Response<List<Storyboard>> findByCreator(User creator) {
         try {
             List storyboards = getCurrentSession().createQuery("from Storyboard as st where st.createdBy = :user")
-                                                  .setParameter("user", creator)
-                                                  .getResultList();
+                    .setParameter("user", creator)
+                    .getResultList();
             return Response.Success(storyboards);
         } catch (Exception exception) {
             return Response.Failure(Collections.singletonList(exception.getMessage()));

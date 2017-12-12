@@ -13,15 +13,15 @@ public class Response<T> {
         this.errors = errors;
     }
 
-    public static <T> Response SuccessEmptyPayload() {
+    public static Response SuccessEmptyPayload() {
         return Success(new Object());
     }
 
-    public static <T> Response Success(T result) {
+    public static <T> Response<T> Success(T result) {
         return new Response<>(result, new ArrayList<>());
     }
 
-    public static Response Failure(List<String> errors) {
+    public static <T> Response<T> Failure(List<String> errors) {
         return new Response<>(null, errors);
     }
 

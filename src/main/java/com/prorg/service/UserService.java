@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserService {
     List<User> list();
-    Response createUser(String firstName, String lastName, String email, String password, String confirmPassword) throws Exception;
-    Response loginUser(String email, String password) throws Exception;
-    Response getUserById(int userId) throws Exception;
+    Response<Integer> createUser(String firstName, String lastName, String email, String password, String confirmPassword) throws Exception;
+    Response<Integer> loginUser(String email, String password) throws Exception;
+    Response<User> getUserById(int userId) throws Exception;
 }

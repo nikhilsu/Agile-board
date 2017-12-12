@@ -31,7 +31,7 @@ public class LoginController {
     public String login(HttpServletRequest request, HttpSession session, Model model) throws Exception {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        Response response = userService.loginUser(email, password);
+        Response<Integer> response = userService.loginUser(email, password);
         if (response.isSuccessful()) {
             session.setAttribute(Constants.SessionKeys.LOGGED_IN_USER, response.data());
             Object referer = request.getAttribute(Constants.RequestAttributes.REFERER);

@@ -26,23 +26,23 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
 
     @Override
-    public Response save(User user) {
+    public Response<Integer> save(User user) {
         return super.save(user);
     }
 
     @Override
-    public Response findByEmail(String email) {
+    public Response<User> findByEmail(String email) {
         Query query = getCurrentSession().createQuery("from User where email = :email");
         query.setParameter("email", email);
         try {
-            return Response.Success(query.getSingleResult());
+            return Response.Success((User) query.getSingleResult());
         } catch (Exception exception) {
             return Response.Failure(Collections.singletonList(exception.getMessage()));
         }
     }
 
     @Override
-    public Response findById(int userId) {
+    public Response<User> findById(int userId) {
         return Response.Success(getCurrentSession().get(User.class, userId));
     }
 }

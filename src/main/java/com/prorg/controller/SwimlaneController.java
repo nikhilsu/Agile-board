@@ -30,9 +30,9 @@ public class SwimlaneController {
     @RequestMapping(value = Constants.Route.SWIMLANES, method = RequestMethod.POST)
     public String addSwimlane(HttpServletRequest request, @PathVariable("id") int storyboardId, Model model) throws Exception {
         String name = request.getParameter("name");
-        Response response = storyboardService.getStoryboardById(storyboardId);
-        Storyboard storyboard = (Storyboard) response.data();
-        Response swimlaneCreation = swimlaneService.createSwimlane(name, storyboard);
+        Response<Storyboard> response = storyboardService.getStoryboardById(storyboardId);
+        Storyboard storyboard = response.data();
+        Response<Integer> swimlaneCreation = swimlaneService.createSwimlane(name, storyboard);
         model.addAttribute(Constants.ModelAttributes.MESSAGE, swimlaneCreation.isSuccessful() ? "Success" : "Failed");
         return Constants.Route.REDIRECT + Constants.Route.SPECIFIC_STORYBOARD(storyboardId);
     }

@@ -23,9 +23,8 @@ public class SwimlaneServiceImpl implements SwimlaneService {
         this.validator = validator;
     }
 
-
     @Override
-    public Response createSwimlane(String name, Storyboard itsStoryBoard) {
+    public Response<Integer> createSwimlane(String name, Storyboard itsStoryBoard) {
         Swimlane swimlaneToAdd = new Swimlane();
         swimlaneToAdd.setName(name)
                      .setStoryboard(itsStoryBoard);
@@ -37,8 +36,8 @@ public class SwimlaneServiceImpl implements SwimlaneService {
     }
 
     @Override
-    public Response getSwimlaneById(int swimlaneId) throws Exception {
+    public Response<Swimlane> getSwimlaneById(int swimlaneId) throws Exception {
         Response queryResponse = swimlaneDao.findById(swimlaneId);
-        return Response.Success(queryResponse.data());
+        return Response.Success((Swimlane) queryResponse.data());
     }
 }

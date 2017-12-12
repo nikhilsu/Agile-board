@@ -28,7 +28,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public Response createCard(String title, String description, Swimlane itsSwimlane, User creator) {
+    public Response<Integer> createCard(String title, String description, Swimlane itsSwimlane, User creator) {
         Card cardToAdd = new Card();
         ArrayList<User> assignedUsers = new ArrayList<>();
         assignedUsers.add(creator);
@@ -44,9 +44,9 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public Response getCardById(int cardId) throws Exception {
+    public Response<Card> getCardById(int cardId) throws Exception {
         Response queryResponse = cardDao.findById(cardId);
-        return Response.Success(queryResponse.data());
+        return Response.Success((Card) queryResponse.data());
     }
 
     @Override

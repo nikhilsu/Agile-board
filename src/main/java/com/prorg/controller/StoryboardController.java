@@ -35,10 +35,10 @@ public class StoryboardController {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         int createdById = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
-        Response response = userService.getUserById(createdById);
+        Response<User> response = userService.getUserById(createdById);
         // TODO: Add of check for response failure.
-        User createdByUser = (User) response.data();
-        Response save = storyboardService.createStoryboard(title, description, createdByUser);
+        User createdByUser = response.data();
+        Response<Integer> save = storyboardService.createStoryboard(title, description, createdByUser);
         model.addAttribute(Constants.ModelAttributes.MESSAGE, save.isSuccessful() ? "Success" : "Failed");
         return Constants.Route.REDIRECT + Constants.Route.STORYBOARDS;
     }
@@ -47,10 +47,10 @@ public class StoryboardController {
     public String getAllStoryboards(HttpSession session, Model model) throws Exception {
         int userId = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
         // TODO: Add isSuccessful() check
-        User loggedInUser = (User) userService.getUserById(userId).data();
+        User loggedInUser = userService.getUserById(userId).data();
         List<Storyboard> accessibleStoryboards = loggedInUser.getAccessibleStoryboards();
         // TODO: Add isSuccessful() check
-        List storyboardCreatedByLoggedInUser = (List) storyboardService.getStoryboardGivenItsCreator(loggedInUser).data();
+        List<Storyboard> storyboardCreatedByLoggedInUser = storyboardService.getStoryboardGivenItsCreator(loggedInUser).data();
         List<Storyboard> allMyStoryboards = new ArrayList<>(accessibleStoryboards);
         allMyStoryboards.addAll(storyboardCreatedByLoggedInUser);
         model.addAttribute(Constants.ModelAttributes.STORYBOARDS, allMyStoryboards);
@@ -59,9 +59,9 @@ public class StoryboardController {
 
     @RequestMapping(value = Constants.Route.SPECIFIC_STORYBOARD, method = RequestMethod.GET)
     public String getAStoryboard(@PathVariable("id") int storyboardId, Model model) throws Exception {
-        Response getStoryBoardId = storyboardService.getStoryboardById(storyboardId);
+        Response<Storyboard> getStoryBoardId = storyboardService.getStoryboardById(storyboardId);
         if (getStoryBoardId.isSuccessful()) {
-            model.addAttribute(Constants.ModelAttributes.STORYBOARD, (Storyboard) getStoryBoardId.data());
+            model.addAttribute(Constants.ModelAttributes.STORYBOARD, getStoryBoardId.data());
         }
         return Constants.RedirectPage.STORYBOARD;
     }
@@ -70,9 +70,9 @@ public class StoryboardController {
     public String updateUsersWhoCanAccessStoryboard(HttpServletRequest request, @PathVariable("id") int storyboardId, Model model) throws Exception {
         ArrayList<User> usersWhoHaveAccess = new ArrayList<>();
         for (String userId : request.getParameterValues("usersWhoHaveAccess")) {
-            Response getUser = userService.getUserById(Integer.valueOf(userId));
+            Response<User> getUser = userService.getUserById(Integer.valueOf(userId));
             if (getUser.isSuccessful()) {
-                User user = (User) getUser.data();
+                User user = getUser.data();
                 usersWhoHaveAccess.add(user);
             }
         }

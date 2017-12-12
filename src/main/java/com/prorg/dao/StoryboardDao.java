@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface StoryboardDao {
     List<Storyboard> list();
-    Response save(Storyboard storyboard);
-    Response findById(int storyboardId);
+    Response<Integer> save(Storyboard storyboard);
+    Response<Storyboard> findById(int storyboardId);
     Response deleteById(int storyboardId);
     Response update(Storyboard storyboard);
-    Response findByCreator(User creator);
+    Response<List<Storyboard>> findByCreator(User creator);
 }

@@ -37,27 +37,31 @@ public class CardController {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         int cardCreatorId = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
-        Response userById = userService.getUserById(cardCreatorId);
+        Response<User> userById = userService.getUserById(cardCreatorId);
         // TODO: Check if user is null
-        User creator = (User) userById.data();
-        Response response = swimlaneService.getSwimlaneById(swimlaneId);
-        Swimlane swimlane = (Swimlane) response.data();
-        Response cardCreation = cardService.createCard(name, description, swimlane, creator);
+        User creator = userById.data();
+        Response<Swimlane> response = swimlaneService.getSwimlaneById(swimlaneId);
+        Swimlane swimlane = response.data();
+        Response<Integer> cardCreation = cardService.createCard(name, description, swimlane, creator);
 
         model.addAttribute(Constants.ModelAttributes.MESSAGE, cardCreation.isSuccessful() ? "Success" : "Failed");
         return Constants.Route.REDIRECT + Constants.Route.SPECIFIC_STORYBOARD(storyboardId);
     }
 
     @RequestMapping(value = Constants.Route.ADD_USER_TO_CARD, method = RequestMethod.POST)
-    public void updateAssignedUsersOfCard(HttpServletRequest request, HttpSession session, @PathVariable("id") int cardId, Model model) throws Exception {
+    public void updateAssignedUsersOfCard(HttpServletRequest request, @PathVariable("id") int cardId, Model model) throws Exception {
         String idOfUserToAdd = request.getParameter("userToAdd");
-        Response getUser = userService.getUserById(Integer.valueOf(idOfUserToAdd));
-        Response getCardById = cardService.getCardById(cardId);
+        Response<User> getUser = userService.getUserById(Integer.valueOf(idOfUserToAdd));
+        Response<Card> getCardById = cardService.getCardById(cardId);
         if (getUser.isSuccessful() && getCardById.isSuccessful()) {
-            Card card = (Card) getCardById.data();
-            User user = (User) getUser.data();
+            Card card = getCardById.data();
+            User user = getUser.data();
             // TODO: Add proxy pattern here!
-            cardService.addUserToCard(card, user);
+            Response addUserToCard = cardService.addUserToCard(card, user);
+            if (addUserToCard.isSuccessful())
+                model.addAttribute("message", "success");
+            else
+                model.addAttribute("message", "failure");
         }
     }
 }
