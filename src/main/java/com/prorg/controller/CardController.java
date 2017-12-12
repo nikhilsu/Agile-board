@@ -32,11 +32,10 @@ public class CardController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = Constants.Route.ADD_CARD, method = RequestMethod.POST)
-    public String addCardToSwimlane(HttpServletRequest request, HttpSession session, Model model) throws Exception {
+    @RequestMapping(value = Constants.Route.CARDS, method = RequestMethod.POST)
+    public String addCardToSwimlane(HttpServletRequest request, HttpSession session, @PathVariable("stId") int storyboardId, @PathVariable("id") int swimlaneId, Model model) throws Exception {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        int swimlaneId = Integer.valueOf(request.getParameter("swimlaneId"));
         int cardCreatorId = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
         Response userById = userService.getUserById(cardCreatorId);
         // TODO: Check if user is null
@@ -46,7 +45,7 @@ public class CardController {
         Response cardCreation = cardService.createCard(name, description, swimlane, creator);
 
         model.addAttribute(Constants.ModelAttributes.MESSAGE, cardCreation.isSuccessful() ? "Success" : "Failed");
-        return Constants.RedirectPage.INDEX;
+        return Constants.Route.REDIRECT + Constants.Route.SPECIFIC_STORYBOARD(storyboardId);
     }
 
     @RequestMapping(value = Constants.Route.UPDATE_USERS_OF_CARD, method = RequestMethod.POST)

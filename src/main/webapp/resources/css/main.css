@@ -116,3 +116,21 @@ footer {
     font-size: 50px;
     margin-top: 50px;
 }
+
+.swimlane {
+    border: black solid 2px;
+    padding: 10px;
+    display: inline-block;
+    width: 200px;
+    height: 500px;
+}
+
+.swimlane-title {
+    font-weight: bold;
+}
+
+.create-card {
+    border: black solid 2px;
+    padding: 10px;
+    display: inline-block;
+}
