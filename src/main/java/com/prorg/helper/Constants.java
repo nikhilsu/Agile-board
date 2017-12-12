@@ -18,8 +18,8 @@ public class Constants {
         public static final String REGISTER = "/register";
         public static final String ROOT = "/";
         public static final String CARDS = "/storyboards/{stId}/swimlanes/{id}/cards";
-        public static final String ADD_USER_TO_CARD = "/card/{id}/users";
-        public static final String UPDATE_USERS_OF_STORYBOARD = "/storyboard/{id}/users";
+        public static final String ADD_USER_TO_CARD = "/cards/{id}/users";
+        public static final String UPDATE_USERS_OF_STORYBOARD = "/storyboards/{id}/users";
         public static final String STORYBOARDS = "/storyboards";
         public static final String SWIMLANES = "/storyboards/{id}/swimlanes";
         public static final String SPECIFIC_STORYBOARD = "/storyboards/{id}";

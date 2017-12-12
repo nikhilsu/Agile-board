@@ -22,7 +22,13 @@
             </form>
         </div>
         <c:forEach var="card" items="${swimlane.cards}" varStatus="row">
-            <p>${card.title}</p>
+            <div>
+                <p>${card.title}</p>
+                <form action="/cards/${card.id}/users" method="post">
+                    <input placeholder="Email" type="text" name="email"/>
+                    <input type="submit" value="Add"/>
+                </form>
+            </div>
         </c:forEach>
     </div>
 </c:forEach>

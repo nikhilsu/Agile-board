@@ -4,11 +4,9 @@ import com.prorg.helper.result.Response;
 import com.prorg.model.Card;
 import com.prorg.model.Swimlane;
 import com.prorg.model.User;
+import com.prorg.service.proxy.CardUserPermissionService;
 
-import java.util.ArrayList;
-
-public interface CardService {
+public interface CardService extends CardUserPermissionService {
     Response<Integer> createCard(String title, String description, Swimlane itsSwimlane, User creator);
     Response<Card> getCardById(int cardId) throws Exception;
-    Response addUserToCard(Card card, User user) throws Exception;
 }

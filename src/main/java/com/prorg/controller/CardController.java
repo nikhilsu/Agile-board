@@ -8,6 +8,7 @@ import com.prorg.model.User;
 import com.prorg.service.CardService;
 import com.prorg.service.SwimlaneService;
 import com.prorg.service.UserService;
+import com.prorg.service.proxy.CardUserPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +23,14 @@ import javax.servlet.http.HttpSession;
 public class CardController {
 
     private CardService cardService;
+    private CardUserPermissionService cardUserPermissionService;
     private SwimlaneService swimlaneService;
     private UserService userService;
 
     @Autowired
-    public CardController(CardService cardService, SwimlaneService swimlaneService, UserService userService) {
+    public CardController(CardService cardService, CardUserPermissionService cardUserPermissionService, SwimlaneService swimlaneService, UserService userService) {
         this.cardService = cardService;
+        this.cardUserPermissionService = cardUserPermissionService;
         this.swimlaneService = swimlaneService;
         this.userService = userService;
     }
@@ -49,20 +52,20 @@ public class CardController {
     }
 
     @RequestMapping(value = Constants.Route.ADD_USER_TO_CARD, method = RequestMethod.POST)
-    public void updateAssignedUsersOfCard(HttpServletRequest request, @PathVariable("id") int cardId, Model model) throws Exception {
-        String idOfUserToAdd = request.getParameter("userToAdd");
-        Response<User> getUser = userService.getUserById(Integer.valueOf(idOfUserToAdd));
+    public String addUserToCard(HttpServletRequest request, @PathVariable("id") int cardId, Model model) throws Exception {
+        String emailOfUserToAdd = request.getParameter("email");
+        Response<User> getUser = userService.getUserByEmail(emailOfUserToAdd);
         Response<Card> getCardById = cardService.getCardById(cardId);
         if (getUser.isSuccessful() && getCardById.isSuccessful()) {
             Card card = getCardById.data();
             User user = getUser.data();
-            // TODO: Add proxy pattern here!
-            Response addUserToCard = cardService.addUserToCard(card, user);
-            if (addUserToCard.isSuccessful())
-                model.addAttribute("message", "success");
-            else
-                model.addAttribute("message", "failure");
+            Response addUserToCard = cardUserPermissionService.addUserToCard(card, user);
+            if (addUserToCard.isSuccessful()) {
+                model.addAttribute(Constants.ModelAttributes.MESSAGE, "success");
+            } else
+                model.addAttribute(Constants.ModelAttributes.MESSAGE, String.join(", ", addUserToCard.errors()));
         }
+        return Constants.RedirectPage.INDEX;
     }
 }
 

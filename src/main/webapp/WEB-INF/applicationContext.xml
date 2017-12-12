@@ -63,5 +63,6 @@
     <bean id="validatorFactory" class="javax.validation.Validation" factory-method="buildDefaultValidatorFactory" />
     <bean id="validator" factory-bean="validatorFactory" factory-method="getValidator" />
     <bean id="modelValidator" class="com.prorg.helper.validator.ModelValidator" />
+    <bean id="cardUserPermissionService" class="com.prorg.service.proxy.impl.CardUserPermissionServiceProxyImpl" />
 
 </beans>

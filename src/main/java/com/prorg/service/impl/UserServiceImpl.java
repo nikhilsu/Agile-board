@@ -71,4 +71,10 @@ public class UserServiceImpl implements UserService {
         Response queryResponse = userDao.findById(userId);
         return Response.Success((User) queryResponse.data());
     }
+
+    @Override
+    public Response<User> getUserByEmail(String emailId) throws Exception {
+        Response queryResponse = userDao.findByEmail(emailId);
+        return Response.Success((User) queryResponse.data());
+    }
 }

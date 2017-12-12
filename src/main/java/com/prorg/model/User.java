@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Objects;
 
 @FieldMatch(first = "password", second = "confirmPassword")
 @PasswordHashMatch(passwordHash = "passwordHash", passwordSalt = "salt", passwordString = "password")
@@ -142,5 +143,23 @@ public class User {
     public User setAccessibleStoryboards(List<Storyboard> accessibleStoryboards) {
         this.accessibleStoryboards = accessibleStoryboards;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(salt, user.salt) &&
+                Objects.equals(passwordHash, user.passwordHash);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, salt, passwordHash, password);
     }
 }
