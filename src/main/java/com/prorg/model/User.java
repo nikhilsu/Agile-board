@@ -2,6 +2,8 @@ package com.prorg.model;
 
 import com.prorg.helper.contraint.FieldMatch;
 import com.prorg.helper.contraint.PasswordHashMatch;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -49,6 +51,7 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "card_id")}
     )
+    @LazyCollection(value = LazyCollectionOption.FALSE)
     private List<Card> cards;
 
     @ManyToMany(cascade = { CascadeType.ALL}, fetch = FetchType.EAGER)
@@ -57,6 +60,7 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "storyboard_id")}
     )
+    @LazyCollection(value = LazyCollectionOption.FALSE)
     private List<Storyboard> accessibleStoryboards;
 
     public int getId() {
