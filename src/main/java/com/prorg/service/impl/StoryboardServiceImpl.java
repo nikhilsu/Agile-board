@@ -48,11 +48,14 @@ public class StoryboardServiceImpl implements StoryboardService {
     }
 
     @Override
-    public Response updateUsersWhoHaveAccessToStoryboard(int storyboardId, ArrayList<User> usersWhoHaveAccess) throws Exception {
+    public Response addUserToStoryboard(int storyboardId, User userToAdd) throws Exception {
         Response queryResponse = storyboardDao.findById(storyboardId);
         if (!queryResponse.isSuccessful())
             return queryResponse;
         Storyboard storyboard = (Storyboard) queryResponse.data();
+        List<User> usersWhoHaveAccess = storyboard.getUsersWhoHaveAccess();
+        if (!usersWhoHaveAccess.contains(userToAdd))
+            usersWhoHaveAccess.add(userToAdd);
         storyboard.setUsersWhoHaveAccess(usersWhoHaveAccess);
         return storyboardDao.update(storyboard);
     }

@@ -67,18 +67,17 @@ public class StoryboardController {
     }
 
     @RequestMapping(value = Constants.Route.UPDATE_USERS_OF_STORYBOARD, method = RequestMethod.POST)
-    public String updateUsersWhoCanAccessStoryboard(HttpServletRequest request, @PathVariable("id") int storyboardId, Model model) throws Exception {
-        ArrayList<User> usersWhoHaveAccess = new ArrayList<>();
-        for (String userId : request.getParameterValues("usersWhoHaveAccess")) {
-            Response<User> getUser = userService.getUserById(Integer.valueOf(userId));
-            if (getUser.isSuccessful()) {
-                User user = getUser.data();
-                usersWhoHaveAccess.add(user);
-            }
+    public String addUserToStoryboard(HttpServletRequest request, @PathVariable("id") int storyboardId, Model model) throws Exception {
+        String emailOfUserToAdd = request.getParameter("email");
+        Response<User> getUser = userService.getUserByEmail(emailOfUserToAdd);
+        if (getUser.isSuccessful()) {
+            User userToAdd = getUser.data();
+            Response updateAssignedUsersOfCard = storyboardService.addUserToStoryboard(storyboardId, userToAdd);
+            model.addAttribute(Constants.ModelAttributes.MESSAGE, updateAssignedUsersOfCard.isSuccessful() ? "Success" : "Failed");
         }
-        Response updateAssignedUsersOfCard = storyboardService.updateUsersWhoHaveAccessToStoryboard(storyboardId, usersWhoHaveAccess);
-
-        model.addAttribute(Constants.ModelAttributes.MESSAGE, updateAssignedUsersOfCard.isSuccessful() ? "Success" : "Failed");
+        else {
+            model.addAttribute(Constants.ModelAttributes.MESSAGE, "Failed");
+        }
         return Constants.RedirectPage.INDEX;
     }
 }
