@@ -47,6 +47,6 @@ public class LoginController {
     @RequestMapping(value = Constants.Route.LOGOUT)
     public String logout(HttpSession session) {
         session.removeAttribute(Constants.SessionKeys.LOGGED_IN_USER);
-        return Constants.RedirectPage.INDEX;
+        return Constants.Route.REDIRECT + Constants.Route.STORYBOARDS;
     }
 }
