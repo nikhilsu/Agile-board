@@ -56,4 +56,11 @@ public class StoryboardServiceImpl implements StoryboardService {
         return storyboardDao.update(storyboard);
     }
 
+    @Override
+    public Response getStoryboardGivenItsCreator(User creator) throws Exception {
+        Response response = storyboardDao.findByCreator(creator);
+        if (!response.isSuccessful())
+            return response;
+        return Response.Success(response.data());
+    }
 }

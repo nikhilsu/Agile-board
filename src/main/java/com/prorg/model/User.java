@@ -43,7 +43,7 @@ public class User {
     @Transient
     private String confirmPassword;
 
-    @ManyToMany(cascade = { CascadeType.ALL})
+    @ManyToMany(cascade = { CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "card_user",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -51,7 +51,7 @@ public class User {
     )
     private List<Card> cards;
 
-    @ManyToMany(cascade = { CascadeType.ALL})
+    @ManyToMany(cascade = { CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "storyboard_user",
             joinColumns = {@JoinColumn(name = "user_id")},

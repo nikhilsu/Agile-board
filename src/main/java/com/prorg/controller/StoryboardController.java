@@ -2,6 +2,7 @@ package com.prorg.controller;
 
 import com.prorg.helper.Constants;
 import com.prorg.helper.result.Response;
+import com.prorg.model.Storyboard;
 import com.prorg.model.User;
 import com.prorg.service.StoryboardService;
 import com.prorg.service.UserService;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
-@RequestMapping(Constants.Route.ADD_STORYBOARD)
 public class StoryboardController {
 
     private StoryboardService storyboardService;
@@ -29,12 +30,7 @@ public class StoryboardController {
         this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String showAddStoryboardForm() {
-        return Constants.RedirectPage.STORY_BOARD_FORM;
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = Constants.Route.STORYBOARDS, method = RequestMethod.POST)
     public String addStoryboard(HttpServletRequest request, HttpSession session, Model model) throws Exception {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
@@ -44,7 +40,7 @@ public class StoryboardController {
         User createdByUser = (User) response.data();
         Response save = storyboardService.createStoryboard(title, description, createdByUser);
         model.addAttribute(Constants.ModelAttributes.MESSAGE, save.isSuccessful() ? "Success" : "Failed");
-        return Constants.RedirectPage.INDEX;
+        return Constants.RedirectPage.STORYBOARDS;
     }
 
     @RequestMapping(value = Constants.Route.UPDATE_USERS_OF_STORYBOARD, method = RequestMethod.POST)
@@ -61,5 +57,19 @@ public class StoryboardController {
 
         model.addAttribute(Constants.ModelAttributes.MESSAGE, updateAssignedUsersOfCard.isSuccessful() ? "Success" : "Failed");
         return Constants.RedirectPage.INDEX;
+    }
+
+    @RequestMapping(value = Constants.Route.STORYBOARDS, method = RequestMethod.GET)
+    public String getAllStoryboards(HttpSession session, Model model) throws Exception {
+        int userId = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
+        // TODO: Add isSuccessful() check
+        User loggedInUser = (User) userService.getUserById(userId).data();
+        List<Storyboard> accessibleStoryboards = loggedInUser.getAccessibleStoryboards();
+        // TODO: Add isSuccessful() check
+        List storyboardCreatedByLoggedInUser = (List) storyboardService.getStoryboardGivenItsCreator(loggedInUser).data();
+        List<Storyboard> allMyStoryboards = new ArrayList<>(accessibleStoryboards);
+        allMyStoryboards.addAll(storyboardCreatedByLoggedInUser);
+        model.addAttribute(Constants.ModelAttributes.STORYBOARDS, allMyStoryboards);
+        return Constants.RedirectPage.STORYBOARDS;
     }
 }
