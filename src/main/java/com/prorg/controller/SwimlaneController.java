@@ -9,13 +9,13 @@ import com.prorg.service.SwimlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping(Constants.Route.ADD_SWIMLANE)
 public class SwimlaneController {
 
     private SwimlaneService swimlaneService;
@@ -27,10 +27,9 @@ public class SwimlaneController {
         this.storyboardService = storyboardService;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String addSwimlane(HttpServletRequest request, Model model) throws Exception {
+    @RequestMapping(value = Constants.Route.SWIMLANES, method = RequestMethod.POST)
+    public String addSwimlane(HttpServletRequest request, @PathVariable("id") int storyboardId, Model model) throws Exception {
         String name = request.getParameter("name");
-        int storyboardId = Integer.valueOf(request.getParameter("storyboardId"));
         Response response = storyboardService.getStoryboardById(storyboardId);
         Storyboard storyboard = (Storyboard) response.data();
         Response swimlaneCreation = swimlaneService.createSwimlane(name, storyboard);

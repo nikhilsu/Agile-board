@@ -9,6 +9,7 @@ public class Constants {
         public static final String MESSAGE = "message";
         public static final String USERS = "users";
         public static final String STORYBOARDS = "storyboards";
+        public static final String STORYBOARD = "storyboard";
     }
 
     public static class Route {
@@ -16,12 +17,12 @@ public class Constants {
         public static final String LOGOUT = "/logout";
         public static final String REGISTER = "/register";
         public static final String ROOT = "/";
-        public static final String ADD_SWIMLANE = "/addSwimlane";
         public static final String ADD_CARD = "/addCard";
         public static final String UPDATE_USERS_OF_CARD = "/card/{id}/users";
         public static final String UPDATE_USERS_OF_STORYBOARD = "/storyboard/{id}/users";
         public static final String STORYBOARDS = "/storyboards";
-        public static final String SWIMLANES = "/swimlanes";
+        public static final String SWIMLANES = "/storyboards/{id}/swimlanes";
+        public static final String SPECIFIC_STORYBOARDS = "/storyboards/{id}";
     }
 
     public static class RedirectPage {
@@ -29,5 +30,6 @@ public class Constants {
         public static final String LOGIN_FORM = "login";
         public static final String REGISTRATION_FORM = "registrationForm";
         public static final String STORYBOARDS = "storyboards";
+        public static final String STORYBOARD = "storyboard";
     }
 }

@@ -1,4 +1,7 @@
 package com.prorg.model;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -25,9 +28,11 @@ public class Storyboard {
     private User createdBy;
 
     @OneToMany(mappedBy = "storyboard")
+    @LazyCollection(value = LazyCollectionOption.FALSE)
     private List<Swimlane> swimlanes;
 
     @ManyToMany(mappedBy = "accessibleStoryboards")
+    @LazyCollection(value = LazyCollectionOption.FALSE)
     private List<User> usersWhoHaveAccess;
 
     public int getId() {

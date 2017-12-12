@@ -43,6 +43,29 @@ public class StoryboardController {
         return Constants.RedirectPage.STORYBOARDS;
     }
 
+    @RequestMapping(value = Constants.Route.STORYBOARDS, method = RequestMethod.GET)
+    public String getAllStoryboards(HttpSession session, Model model) throws Exception {
+        int userId = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
+        // TODO: Add isSuccessful() check
+        User loggedInUser = (User) userService.getUserById(userId).data();
+        List<Storyboard> accessibleStoryboards = loggedInUser.getAccessibleStoryboards();
+        // TODO: Add isSuccessful() check
+        List storyboardCreatedByLoggedInUser = (List) storyboardService.getStoryboardGivenItsCreator(loggedInUser).data();
+        List<Storyboard> allMyStoryboards = new ArrayList<>(accessibleStoryboards);
+        allMyStoryboards.addAll(storyboardCreatedByLoggedInUser);
+        model.addAttribute(Constants.ModelAttributes.STORYBOARDS, allMyStoryboards);
+        return Constants.RedirectPage.STORYBOARDS;
+    }
+
+    @RequestMapping(value = Constants.Route.SPECIFIC_STORYBOARDS, method = RequestMethod.GET)
+    public String getAStoryboard(@PathVariable("id") int storyboardId, Model model) throws Exception {
+        Response getStoryBoardId = storyboardService.getStoryboardById(storyboardId);
+        if (getStoryBoardId.isSuccessful()) {
+            model.addAttribute(Constants.ModelAttributes.STORYBOARD, (Storyboard) getStoryBoardId.data());
+        }
+        return Constants.RedirectPage.STORYBOARD;
+    }
+
     @RequestMapping(value = Constants.Route.UPDATE_USERS_OF_STORYBOARD, method = RequestMethod.POST)
     public String updateUsersWhoCanAccessStoryboard(HttpServletRequest request, @PathVariable("id") int storyboardId, Model model) throws Exception {
         ArrayList<User> usersWhoHaveAccess = new ArrayList<>();
@@ -57,19 +80,5 @@ public class StoryboardController {
 
         model.addAttribute(Constants.ModelAttributes.MESSAGE, updateAssignedUsersOfCard.isSuccessful() ? "Success" : "Failed");
         return Constants.RedirectPage.INDEX;
-    }
-
-    @RequestMapping(value = Constants.Route.STORYBOARDS, method = RequestMethod.GET)
-    public String getAllStoryboards(HttpSession session, Model model) throws Exception {
-        int userId = (int) session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER);
-        // TODO: Add isSuccessful() check
-        User loggedInUser = (User) userService.getUserById(userId).data();
-        List<Storyboard> accessibleStoryboards = loggedInUser.getAccessibleStoryboards();
-        // TODO: Add isSuccessful() check
-        List storyboardCreatedByLoggedInUser = (List) storyboardService.getStoryboardGivenItsCreator(loggedInUser).data();
-        List<Storyboard> allMyStoryboards = new ArrayList<>(accessibleStoryboards);
-        allMyStoryboards.addAll(storyboardCreatedByLoggedInUser);
-        model.addAttribute(Constants.ModelAttributes.STORYBOARDS, allMyStoryboards);
-        return Constants.RedirectPage.STORYBOARDS;
     }
 }

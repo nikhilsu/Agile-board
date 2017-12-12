@@ -1,5 +1,8 @@
 package com.prorg.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -30,6 +33,7 @@ public class Card {
     private Swimlane swimlane;
 
     @ManyToMany(mappedBy = "cards")
+    @LazyCollection(value = LazyCollectionOption.FALSE)
     private List<User> assignedUser;
 
     public int getId() {

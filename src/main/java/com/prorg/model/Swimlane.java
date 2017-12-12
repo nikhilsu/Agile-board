@@ -1,5 +1,8 @@
 package com.prorg.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
@@ -24,6 +27,7 @@ public class Swimlane {
     private Storyboard storyboard;
 
     @OneToMany(mappedBy = "swimlane")
+    @LazyCollection(value = LazyCollectionOption.FALSE)
     private List<Card> cards;
 
     public int getId() {
