@@ -9,6 +9,7 @@
 <h3>${storyboard.title}</h3>
 
 <h3>All you swimlanes</h3>
+<div class="inline-flex">
 <c:forEach var="swimlane" items="${storyboard.swimlanes}" varStatus="row">
     <div class="swimlane">
         <p class="swimlane-title">${swimlane.name}</p>
@@ -25,7 +26,7 @@
         </c:forEach>
     </div>
 </c:forEach>
-
+</div>
 <h3>Add swimlane</h3>
 <form action="/storyboards/${storyboard.id}/swimlanes" method="post">
     <input placeholder="Name" type="text" id="name" name="name"/>

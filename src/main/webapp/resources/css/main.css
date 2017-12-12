@@ -123,6 +123,7 @@ footer {
     display: inline-block;
     width: 200px;
     height: 500px;
+    margin-right: 10px;
 }
 
 .swimlane-title {
