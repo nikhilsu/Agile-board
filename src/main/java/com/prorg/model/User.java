@@ -45,7 +45,7 @@ public class User {
     @Transient
     private String confirmPassword;
 
-    @ManyToMany(cascade = { CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.ALL})
     @JoinTable(
             name = "card_user",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -54,7 +54,7 @@ public class User {
     @LazyCollection(value = LazyCollectionOption.FALSE)
     private List<Card> cards;
 
-    @ManyToMany(cascade = { CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.ALL})
     @JoinTable(
             name = "storyboard_user",
             joinColumns = {@JoinColumn(name = "user_id")},
