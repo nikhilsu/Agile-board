@@ -7,9 +7,9 @@
 </head>
 <body class="no-margin">
 <%@ include file="header.jsp" %>
-
+<div class="storyboards-container">
 <h3>All your storyboards</h3>
-<div class="inline-flex width-full">
+<div class="width-full">
 <c:forEach var="storyboard" items="${storyboards}" varStatus="row">
     <div class="storyboard-tag"> <a href="${pageContext.request.contextPath}/storyboards/${storyboard.id}">${storyboard.title}</a></div>
 </c:forEach>
@@ -28,6 +28,6 @@
         <input type="submit" value="Create"/>
     </div>
 </form>
-
+</div>
 </body>
 </html>

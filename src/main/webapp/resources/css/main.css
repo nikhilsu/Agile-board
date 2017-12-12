@@ -1,12 +1,14 @@
 /*App CSS*/
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans');
+
 .app-color{
     background-color: #0E6AA6;
 }
 .home-margin{
     margin:0;
 }
-.app-font, .app-font input{
-    font-family: 'Vollkorn SC', serif;
+body {
+    font-family: 'Alegreya Sans', serif;
 }
 .heading-color{
     color:#fff;
@@ -148,15 +150,14 @@
     justify-content: space-between;
 }
 .storyboard-tag{
-    width: 16%;
-    height: 60px;
     margin-right: 15px;
-    font-weight: bold;
     background-color:#36c45a;
+    display: inline-flex;
 }
 .storyboard-tag a{
     color:#fff;
     text-decoration: none;
+    padding: 50px;
 }
 .text-box-header input{
     box-sizing: border-box;
@@ -212,26 +213,37 @@ footer {
 .swimlane-title {
     font-weight: bold;
 }
+
 .card-form {
     background-color: #51b5ab;
     margin-top: 5px;
     border: 2px solid #7c7c7c;
     border-radius: 5px;
 }
-.card-list{
 
-}
 .create-card {
+    display: none;
     background-color: #E1E3E5;
     border: black solid 2px;
     padding: 10px;
-    display: inline-block;
 }
+
 .add-swimlane{
-    width: 19%;
+    width: 250px;
     background-color: #42A15B;
     text-align: center;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 25px;
+}
+
+.storyboards-container {
+    padding: 10px;
+}
+
+.right {
+    float: right;
+}
+.add-boxes {
+    display: inline-block;
 }
