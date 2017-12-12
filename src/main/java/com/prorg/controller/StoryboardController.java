@@ -40,7 +40,7 @@ public class StoryboardController {
         User createdByUser = (User) response.data();
         Response save = storyboardService.createStoryboard(title, description, createdByUser);
         model.addAttribute(Constants.ModelAttributes.MESSAGE, save.isSuccessful() ? "Success" : "Failed");
-        return Constants.RedirectPage.STORYBOARDS;
+        return Constants.Route.REDIRECT + Constants.Route.STORYBOARDS;
     }
 
     @RequestMapping(value = Constants.Route.STORYBOARDS, method = RequestMethod.GET)
@@ -57,7 +57,7 @@ public class StoryboardController {
         return Constants.RedirectPage.STORYBOARDS;
     }
 
-    @RequestMapping(value = Constants.Route.SPECIFIC_STORYBOARDS, method = RequestMethod.GET)
+    @RequestMapping(value = Constants.Route.SPECIFIC_STORYBOARD, method = RequestMethod.GET)
     public String getAStoryboard(@PathVariable("id") int storyboardId, Model model) throws Exception {
         Response getStoryBoardId = storyboardService.getStoryboardById(storyboardId);
         if (getStoryBoardId.isSuccessful()) {

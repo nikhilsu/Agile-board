@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -20,12 +21,11 @@ public class Card {
 
     @Column
     @NotNull
-    @Min(1)
-    @Max(255)
+    @Size(min = 1, max = 255)
     private String title;
 
     @Column
-    @Max(1023)
+    @Size(max = 1023)
     private String description;
 
     @ManyToOne

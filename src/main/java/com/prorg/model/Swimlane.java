@@ -6,6 +6,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Swimlane {
 
     @Column
     @NotNull
-    @Max(255)
+    @Size(min = 1, max = 255)
     private String name;
 
     @ManyToOne

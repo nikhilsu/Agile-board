@@ -22,7 +22,12 @@ public class Constants {
         public static final String UPDATE_USERS_OF_STORYBOARD = "/storyboard/{id}/users";
         public static final String STORYBOARDS = "/storyboards";
         public static final String SWIMLANES = "/storyboards/{id}/swimlanes";
-        public static final String SPECIFIC_STORYBOARDS = "/storyboards/{id}";
+        public static final String SPECIFIC_STORYBOARD = "/storyboards/{id}";
+        public static final String REDIRECT = "redirect:";
+
+        public static String SPECIFIC_STORYBOARD(int storyboardId) {
+            return "/storyboards/" + String.valueOf(storyboardId);
+        }
     }
 
     public static class RedirectPage {
@@ -31,5 +36,9 @@ public class Constants {
         public static final String REGISTRATION_FORM = "registrationForm";
         public static final String STORYBOARDS = "storyboards";
         public static final String STORYBOARD = "storyboard";
+    }
+
+    public static class RequestAttributes {
+        public static final String REFERER = "referer";
     }
 }

@@ -34,6 +34,6 @@ public class SwimlaneController {
         Storyboard storyboard = (Storyboard) response.data();
         Response swimlaneCreation = swimlaneService.createSwimlane(name, storyboard);
         model.addAttribute(Constants.ModelAttributes.MESSAGE, swimlaneCreation.isSuccessful() ? "Success" : "Failed");
-        return Constants.RedirectPage.INDEX;
+        return Constants.Route.REDIRECT + Constants.Route.SPECIFIC_STORYBOARD(storyboardId);
     }
 }
