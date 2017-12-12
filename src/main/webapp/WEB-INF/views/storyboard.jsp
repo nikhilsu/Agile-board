@@ -5,8 +5,11 @@
     <title>Storyboard</title>
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://use.fontawesome.com/4f32504cfe.js"></script>
+    <script src="/js/main.js"></script>
 </head>
-<body>
+<body class="no-margin">
+<%@ include file="header.jsp" %>
+
 <h3>${storyboard.title}</h3>
 
 <h3>Add user to storyboard</h3>
@@ -15,12 +18,28 @@
     <input type="submit" value="Add"/>
 </form>
 
+
+<h3>Add swimlane</h3>
+<div class="add-swimlane">
+    <form action="/storyboards/${storyboard.id}/swimlanes" method="post">
+        <div class="storyboard-text-box">
+            <input placeholder="Name" type="text" id="name" name="name"/>
+        </div>
+        <div class="storyboard-button-1">
+            <input type="submit" value="Add"/>
+        </div>
+    </form>
+</div>
 <h3>All you swimlanes</h3>
+
 <div class="inline-flex">
     <c:forEach var="swimlane" items="${storyboard.swimlanes}" varStatus="row">
-        <div class="swimlane app-color">
-            <p class="swimlane-title">${swimlane.name}</p>
-            <div class="create-card text-center">
+        <div class="swimlane">
+           <div class="swimlane-top">
+               <div> <p class="swimlane-title">${swimlane.name}</p> </div>
+               <div><button id="toggleButton"  type="submit" onclick="toggleAdd();"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+           </div>
+            <div id="create-card" class="create-card text-center">
                 <p>Create card</p>
                 <form action="/storyboards/${storyboard.id}/swimlanes/${swimlane.id}/cards" method="post">
                     <div class="storyboard-text-box"><input placeholder="Name" type="text" name="name"/></div>
@@ -57,18 +76,5 @@
         </div>
     </c:forEach>
 </div>
-<h3>Add swimlane</h3>
-<div class="add-swimlane">
-    <form action="/storyboards/${storyboard.id}/swimlanes" method="post">
-        <div class="storyboard-text-box">
-            <input placeholder="Name" type="text" id="name" name="name"/>
-        </div>
-        <div class="storyboard-button-1">
-            <input type="submit" value="Add"/>
-        </div>
-    </form>
-</div>
-
-
 </body>
 </html>

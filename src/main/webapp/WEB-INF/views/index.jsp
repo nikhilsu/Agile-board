@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
     <link href="https://fonts.googleapis.com/css?family=Vollkorn+SC" rel="stylesheet">
 </head>
-<body class="app-color home-margin">
+<body class="app-color no-margin home-margin">
 <div class="container">
     <header class="inline-flex">
        <div class="width-30"><h1 class="heading-color text-center app-font" > Welcome to Prorg</h1></div>
@@ -25,7 +25,6 @@
         </div>
     </header>
     <aside>
-        <%@ include file="header.jsp" %>
 
         <c:out value="${message}"/>
         <ul>

@@ -1,6 +1,6 @@
 /*App CSS*/
 .app-color{
-    background-color: #F5F5F5;
+    background-color: #0E6AA6;
 }
 .home-margin{
     margin:0;
@@ -9,7 +9,23 @@
     font-family: 'Vollkorn SC', serif;
 }
 .heading-color{
-    color:#224B5B;
+    color:#fff;
+}
+.no-padding{
+    padding: 0;
+}
+.no-margin{
+    margin: 0;
+}
+.header-box{
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    height:100px;
+    background-color: #0D78BE;
+    font-weight: bold;
+    align-content: center;
+    align-items: center;
 }
 .text-center{
     text-align: center;
@@ -75,9 +91,32 @@
     margin-bottom: 20px;
     text-align: center;
 }
+.header-button1 a{
+ color:#fff;
+    text-decoration: none;
+}
+.header-button1{
+    color:white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 20px;
+    background-color: #57A241;
+    margin-left: 20px;
+}
+.header-button2 a{
+    color: #ffffff;
+    text-decoration: none;
+}
+.header-button2{
+    background-color: #186AA5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 20px;
+
+}
 
 .login-button input{
-    background-color: #1ea9b5;
+    background-color: #57A241;
     color:white;
 }
 .sign-notamember{
@@ -97,9 +136,27 @@
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: 100px 800px 100px;
 }
+.image-logo-header img{
+    width: 50%;
+}
 .login-button-header input{
-    background-color: #0f9ba8;
+    background-color: #58A043;
     color: white !important;
+}
+.swimlane-top{
+    display: flex;
+    justify-content: space-between;
+}
+.storyboard-tag{
+    width: 16%;
+    height: 60px;
+    margin-right: 15px;
+    font-weight: bold;
+    background-color:#36c45a;
+}
+.storyboard-tag a{
+    color:#fff;
+    text-decoration: none;
 }
 .text-box-header input{
     box-sizing: border-box;
@@ -121,20 +178,20 @@
     width:70%;
 }
 header {
-    background-color: #1ea9b5;
+    background-color: #1877BD;
     grid-column: span 10;
 }
 aside {
     grid-column: span 5;
-    background-color: #F5F5F5;
+    background-color: #186AA5;
 }
 main {
     grid-column: span 5;
-    background-color: #F5F5F5;
+    background-color: #186AA5;
 }
 footer {
     grid-column: span 10;
-    background-color: #1ea9b5;
+    background-color: #1877BD;
 }
 .register-now{
     height: 80px;
@@ -149,6 +206,7 @@ footer {
     width: 200px;
     margin-right: 10px;
     border-radius: 5px;
+    background-color: #4DBD6B;
 }
 
 .swimlane-title {
@@ -164,15 +222,16 @@ footer {
 
 }
 .create-card {
-    background-color: #46baae;
+    background-color: #E1E3E5;
     border: black solid 2px;
     padding: 10px;
     display: inline-block;
 }
 .add-swimlane{
     width: 19%;
-    background-color: #1ea9b5;
+    background-color: #42A15B;
     text-align: center;
     padding: 10px;
     border-radius: 5px;
+    margin-bottom: 25px;
 }

@@ -2,19 +2,23 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <link rel="stylesheet" href="/css/main.css">
     <title>Storyboards</title>
 </head>
-<body>
+<body class="no-margin">
+<%@ include file="header.jsp" %>
 
 <h3>All your storyboards</h3>
-
+<div class="inline-flex width-full">
 <c:forEach var="storyboard" items="${storyboards}" varStatus="row">
-    <a href="${pageContext.request.contextPath}/storyboards/${storyboard.id}">${storyboard.title}</a>
+    <div class="storyboard-tag"> <a href="${pageContext.request.contextPath}/storyboards/${storyboard.id}">${storyboard.title}</a></div>
 </c:forEach>
+</div>
+
 
 <h3>Create a storyboard</h3>
 <form action="/storyboards" method="post">
-    <div class="text-box app-font">
+    <div class=" app-font">
         <input placeholder="Title" type="text" id="title" name="title"/>
     </div>
     <div class="text-box app-font">

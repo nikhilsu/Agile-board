@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
     <link href="https://fonts.googleapis.com/css?family=Vollkorn+SC" rel="stylesheet">
 </head>
-<body class="app-color">
+<body class="app-color no-margin">
 <div class="text-center image-logo"><img src="/images/logo.png" alt="Smiley face" ></div>
 <h1 class="heading-color text-center app-font" > Welcome to Prorg</h1>
 <div class="flex-center">
