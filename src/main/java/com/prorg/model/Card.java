@@ -4,8 +4,6 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -34,7 +32,7 @@ public class Card {
 
     @ManyToMany(mappedBy = "cards")
     @LazyCollection(value = LazyCollectionOption.FALSE)
-    private List<User> assignedUser;
+    private List<User> assignedUsers;
 
     public int getId() {
         return id;
@@ -68,11 +66,11 @@ public class Card {
         return this;
     }
 
-    public List<User> getAssignedUser() {
-        return assignedUser;
+    public List<User> getAssignedUsers() {
+        return assignedUsers;
     }
-    public Card setAssignedUser(List<User> assignedUser) {
-        this.assignedUser = assignedUser;
+    public Card setAssignedUsers(List<User> assignedUser) {
+        this.assignedUsers = assignedUser;
         return this;
     }
 }

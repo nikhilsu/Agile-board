@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -34,7 +35,7 @@ public class CardServiceImpl implements CardService {
         cardToAdd.setTitle(title)
                  .setDescription(description)
                  .setSwimlane(itsSwimlane)
-                 .setAssignedUser(assignedUsers);
+                 .setAssignedUsers(assignedUsers);
         ValidationResponse validationResponse = validator.validate(cardToAdd);
         if (!validationResponse.isValid()) {
             return Response.Failure(validationResponse.errors());
@@ -49,14 +50,10 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public Response updateAssignedUsersOfCard(int cardId, ArrayList<User> assignedUsers) throws Exception {
-        Response getCardResponse = cardDao.findById(cardId);
-        if (getCardResponse.isSuccessful()) {
-            Card cardToUpdate = (Card) getCardResponse.data();
-            cardToUpdate.setAssignedUser(assignedUsers);
-            cardDao.update(cardToUpdate);
-            return Response.SuccessEmptyPayload();
-        }
-        return getCardResponse;
+    public Response addUserToCard(Card card, User user) {
+        List<User> assignedUsers = card.getAssignedUsers();
+        assignedUsers.add(user);
+        card.setAssignedUsers(assignedUsers);
+        return cardDao.update(card);
     }
 }

@@ -2,8 +2,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="src/main/webapp/resources/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="src/main/webapp/resources/css/main.css"/>
     <title>Storyboard</title>
     <link rel="stylesheet" href="/css/main.css">
 </head>

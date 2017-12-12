@@ -2,6 +2,7 @@ package com.prorg.controller;
 
 import com.prorg.helper.Constants;
 import com.prorg.helper.result.Response;
+import com.prorg.model.Card;
 import com.prorg.model.Swimlane;
 import com.prorg.model.User;
 import com.prorg.service.CardService;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 
 @Controller
 public class CardController {
@@ -48,20 +48,17 @@ public class CardController {
         return Constants.Route.REDIRECT + Constants.Route.SPECIFIC_STORYBOARD(storyboardId);
     }
 
-    @RequestMapping(value = Constants.Route.UPDATE_USERS_OF_CARD, method = RequestMethod.POST)
-    public String updateAssignedUsersOfCard(HttpServletRequest request, HttpSession session, @PathVariable("id") int cardId, Model model) throws Exception {
-        ArrayList<User> assignedUsers = new ArrayList<>();
-        for(String userId : request.getParameterValues("assignedUsers")) {
-            Response getUser = userService.getUserById(Integer.valueOf(userId));
-            if (getUser.isSuccessful()) {
-                User user = (User) getUser.data();
-                assignedUsers.add(user);
-            }
+    @RequestMapping(value = Constants.Route.ADD_USER_TO_CARD, method = RequestMethod.POST)
+    public void updateAssignedUsersOfCard(HttpServletRequest request, HttpSession session, @PathVariable("id") int cardId, Model model) throws Exception {
+        String idOfUserToAdd = request.getParameter("userToAdd");
+        Response getUser = userService.getUserById(Integer.valueOf(idOfUserToAdd));
+        Response getCardById = cardService.getCardById(cardId);
+        if (getUser.isSuccessful() && getCardById.isSuccessful()) {
+            Card card = (Card) getCardById.data();
+            User user = (User) getUser.data();
+            // TODO: Add proxy pattern here!
+            cardService.addUserToCard(card, user);
         }
-        Response updateAssignedUsersOfCard = cardService.updateAssignedUsersOfCard(cardId, assignedUsers);
-
-        model.addAttribute(Constants.ModelAttributes.MESSAGE, updateAssignedUsersOfCard.isSuccessful() ? "Success" : "Failed");
-        return Constants.RedirectPage.INDEX;
     }
 }
 
