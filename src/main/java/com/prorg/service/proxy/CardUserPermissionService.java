@@ -6,4 +6,5 @@ import com.prorg.model.User;
 
 public interface CardUserPermissionService {
     Response addUserToCard(Card card, User user) throws Exception;
+    Response deleteCardIfAccessibleByUser(Card card, User user);
 }

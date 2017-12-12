@@ -18,12 +18,13 @@ public class Constants {
         public static final String REGISTER = "/register";
         public static final String ROOT = "/";
         public static final String CARDS = "/storyboards/{stId}/swimlanes/{id}/cards";
-        public static final String ADD_USER_TO_CARD = "/cards/{id}/users";
+        public static final String ADD_USER_TO_CARD = "/storyboards/{stId}/cards/{id}/users";
         public static final String UPDATE_USERS_OF_STORYBOARD = "/storyboards/{id}/users";
         public static final String STORYBOARDS = "/storyboards";
         public static final String SWIMLANES = "/storyboards/{id}/swimlanes";
         public static final String SPECIFIC_STORYBOARD = "/storyboards/{id}";
         public static final String REDIRECT = "redirect:";
+        public static final String DELETE_CARD = "/storyboards/{stId}/cards/{id}";
 
         public static String SPECIFIC_STORYBOARD(int storyboardId) {
             return "/storyboards/" + String.valueOf(storyboardId);
@@ -40,5 +41,10 @@ public class Constants {
 
     public static class RequestAttributes {
         public static final String REFERER = "referer";
+        public static String HttpMethod = "_method";
+    }
+
+    public class HttpMethod {
+        public static final String DELETE = "_delete";
     }
 }

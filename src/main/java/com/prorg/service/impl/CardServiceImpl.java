@@ -56,4 +56,9 @@ public class CardServiceImpl implements CardService {
         card.setAssignedUsers(assignedUsers);
         return cardDao.update(card);
     }
+
+    @Override
+    public Response deleteCardIfAccessibleByUser(Card card, User user) {
+        return cardDao.deleteByCardId(card.getId());
+    }
 }

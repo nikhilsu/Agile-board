@@ -31,6 +31,14 @@ public class CardUserPermissionServiceProxyImpl implements CardUserPermissionSer
         return Response.Failure(Collections.singletonList("This user does not belong to the storyboard the card is in!"));
     }
 
+    @Override
+    public Response deleteCardIfAccessibleByUser(Card card, User user) {
+        List<User> usersWhoHaveAccess = getUsersHavingAccessToStoryboardTheCardIsIn(card);
+        if (usersWhoHaveAccess.contains(user))
+            return  cardService.deleteCardIfAccessibleByUser(card, user);
+        return Response.Failure(Collections.singletonList("You do not have permission to delete this card"));
+    }
+
     private List<User> getUsersHavingAccessToStoryboardTheCardIsIn(Card card) {
         Storyboard storyboardTheCardIsIn = card.getSwimlane().getStoryboard();
         User creator = storyboardTheCardIsIn.getCreatedBy();
