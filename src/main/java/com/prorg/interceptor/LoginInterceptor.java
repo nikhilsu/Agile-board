@@ -15,6 +15,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         HttpSession session = request.getSession(false);
         if(session == null || session.getAttribute(Constants.SessionKeys.LOGGED_IN_USER) == null) {
+            String referer = request.getRequestURL().toString();
+            request.setAttribute(Constants.RequestAttributes.REFERER, referer);
             response.sendRedirect(Constants.Route.LOGIN);
             return false;
         }

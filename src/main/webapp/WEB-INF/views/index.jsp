@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
     <link href="https://fonts.googleapis.com/css?family=Vollkorn+SC" rel="stylesheet">
 </head>
 <body class="app-color home-margin">

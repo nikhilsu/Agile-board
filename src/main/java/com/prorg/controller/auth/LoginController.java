@@ -32,15 +32,16 @@ public class LoginController {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         Response response = userService.loginUser(email, password);
-        String messageOnRedirectPage;
         if (response.isSuccessful()) {
-            messageOnRedirectPage = "Login Successful";
             session.setAttribute(Constants.SessionKeys.LOGGED_IN_USER, response.data());
+            Object referer = request.getAttribute(Constants.RequestAttributes.REFERER);
+            if (referer != null) {
+                return Constants.Route.REDIRECT + referer;
+            }
+            return Constants.Route.REDIRECT + Constants.Route.STORYBOARDS;
         }
-        else
-            messageOnRedirectPage = "Login Failed";
-        model.addAttribute(Constants.ModelAttributes.MESSAGE, messageOnRedirectPage);
-        return Constants.RedirectPage.INDEX;
+        model.addAttribute(Constants.ModelAttributes.MESSAGE, "Login Failed");
+        return Constants.RedirectPage.LOGIN_FORM;
     }
 
     @RequestMapping(value = Constants.Route.LOGOUT)
