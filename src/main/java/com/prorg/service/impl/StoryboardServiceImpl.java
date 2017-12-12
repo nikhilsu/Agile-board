@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 @Service
 @Transactional
 public class StoryboardServiceImpl implements StoryboardService {
@@ -43,4 +45,15 @@ public class StoryboardServiceImpl implements StoryboardService {
         Response queryResponse = storyboardDao.findById(storyboardId);
         return Response.Success(queryResponse.data());
     }
+
+    @Override
+    public Response updateUsersWhoHaveAccessToStoryboard(int storyboardId, ArrayList<User> usersWhoHaveAccess) throws Exception {
+        Response queryResponse = storyboardDao.findById(storyboardId);
+        if (!queryResponse.isSuccessful())
+            return queryResponse;
+        Storyboard storyboard = (Storyboard) queryResponse.data();
+        storyboard.setUsersWhoHaveAccess(usersWhoHaveAccess);
+        return storyboardDao.update(storyboard);
+    }
+
 }

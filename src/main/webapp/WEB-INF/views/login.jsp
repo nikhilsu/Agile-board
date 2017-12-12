@@ -4,13 +4,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
     <link href="https://fonts.googleapis.com/css?family=Vollkorn+SC" rel="stylesheet">
-    <%--<script src="<c:url value="/resources/js/jquery.1.10.2.min.js" />"></script>--%>
-    <%--<script src="<c:url value="/resources/js/main.js" />"></script>--%>
 </head>
 <body class="app-color">
-<div class="text-center image-logo"><img src="images/logo.png" alt="Smiley face" ></div>
+<div class="text-center image-logo"><img src="/images/logo.png" alt="Smiley face" ></div>
 <h1 class="heading-color text-center app-font" > Welcome to Prorg</h1>
 <div class="flex-center">
 

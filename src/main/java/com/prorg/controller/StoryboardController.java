@@ -8,11 +8,13 @@ import com.prorg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping(Constants.Route.ADD_STORYBOARD)
@@ -47,6 +49,22 @@ public class StoryboardController {
             Response save = storyboardService.createStoryboard(title, description, createdByUser);
             model.addAttribute(Constants.ModelAttributes.MESSAGE, save.isSuccessful() ? "Success" : "Failed");
         }
+        return Constants.RedirectPage.INDEX;
+    }
+
+    @RequestMapping(value = Constants.Route.UPDATE_USERS_OF_STORYBOARD, method = RequestMethod.POST)
+    public String updateUsersWhoCanAccessStoryboard(HttpServletRequest request, @PathVariable("id") int storyboardId, Model model) throws Exception {
+        ArrayList<User> usersWhoHaveAccess = new ArrayList<>();
+        for(String userId : request.getParameterValues("usersWhoHaveAccess")) {
+            Response getUser = userService.getUserById(Integer.valueOf(userId));
+            if (getUser.isSuccessful()) {
+                User user = (User) getUser.data();
+                usersWhoHaveAccess.add(user);
+            }
+        }
+        Response updateAssignedUsersOfCard = storyboardService.updateUsersWhoHaveAccessToStoryboard(storyboardId, usersWhoHaveAccess);
+
+        model.addAttribute(Constants.ModelAttributes.MESSAGE, updateAssignedUsersOfCard.isSuccessful() ? "Success" : "Failed");
         return Constants.RedirectPage.INDEX;
     }
 

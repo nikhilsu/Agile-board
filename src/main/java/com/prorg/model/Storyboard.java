@@ -27,6 +27,8 @@ public class Storyboard {
     @OneToMany(mappedBy = "storyboard")
     private List<Swimlane> swimlanes;
 
+    @ManyToMany(mappedBy = "accessibleStoryboards")
+    private List<User> usersWhoHaveAccess;
 
     public int getId() {
         return id;
@@ -57,6 +59,22 @@ public class Storyboard {
     }
     public Storyboard setCreatedBy(User userId) {
         this.createdBy = userId;
+        return this;
+    }
+
+    public List<Swimlane> getSwimlanes() {
+        return swimlanes;
+    }
+    public Storyboard setSwimlanes(List<Swimlane> swimlanes) {
+        this.swimlanes = swimlanes;
+        return this;
+    }
+
+    public List<User> getUsersWhoHaveAccess() {
+        return usersWhoHaveAccess;
+    }
+    public Storyboard setUsersWhoHaveAccess(List<User> usersWhoHaveAccess) {
+        this.usersWhoHaveAccess = usersWhoHaveAccess;
         return this;
     }
 }

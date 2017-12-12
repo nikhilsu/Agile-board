@@ -51,6 +51,14 @@ public class User {
     )
     private List<Card> cards;
 
+    @ManyToMany(cascade = { CascadeType.ALL})
+    @JoinTable(
+            name = "storyboard_user",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "storyboard_id")}
+    )
+    private List<Storyboard> accessibleStoryboards;
+
     public int getId() {
         return id;
     }
@@ -121,6 +129,14 @@ public class User {
     }
     public User setCards(List<Card> cards) {
         this.cards = cards;
+        return this;
+    }
+
+    public List<Storyboard> getAccessibleStoryboards() {
+        return accessibleStoryboards;
+    }
+    public User setAccessibleStoryboards(List<Storyboard> accessibleStoryboards) {
+        this.accessibleStoryboards = accessibleStoryboards;
         return this;
     }
 }

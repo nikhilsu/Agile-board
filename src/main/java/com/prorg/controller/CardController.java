@@ -2,7 +2,6 @@ package com.prorg.controller;
 
 import com.prorg.helper.Constants;
 import com.prorg.helper.result.Response;
-import com.prorg.model.Storyboard;
 import com.prorg.model.Swimlane;
 import com.prorg.model.User;
 import com.prorg.service.CardService;

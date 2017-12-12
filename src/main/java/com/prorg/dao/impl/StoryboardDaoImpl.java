@@ -3,10 +3,12 @@ package com.prorg.dao.impl;
 import com.prorg.dao.StoryboardDao;
 import com.prorg.helper.result.Response;
 import com.prorg.model.Storyboard;
+import com.prorg.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -41,5 +43,17 @@ public class StoryboardDaoImpl extends BaseDaoImpl implements StoryboardDao {
     @Override
     public Response update(Storyboard storyboard) {
         return super.update(storyboard);
+    }
+
+    @Override
+    public Response findByCreator(User creator) {
+        try {
+            List storyboards = getCurrentSession().createQuery("from Storyboard as st where st.createdBy = :user")
+                                                  .setParameter("user", creator)
+                                                  .getResultList();
+            return Response.Success(storyboards);
+        } catch (Exception exception) {
+            return Response.Failure(Collections.singletonList(exception.getMessage()));
+        }
     }
 }
