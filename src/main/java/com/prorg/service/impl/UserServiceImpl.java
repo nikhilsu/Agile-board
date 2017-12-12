@@ -30,11 +30,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> list() {
-        return userDao.list();
-    }
-
-    @Override
     public Response<Integer> createUser(String firstName, String lastName,
                                String email, String password,
                                String confirmPassword) {

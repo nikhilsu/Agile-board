@@ -8,21 +8,12 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
-import java.util.List;
-
 @Repository
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Autowired
     public UserDaoImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<User> list() {
-        return getCurrentSession().createQuery("from User").getResultList();
     }
 
     @Override

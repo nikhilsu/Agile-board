@@ -7,7 +7,6 @@ import com.prorg.model.User;
 import java.util.List;
 
 public interface StoryboardDao {
-    List<Storyboard> list();
     Response<Integer> save(Storyboard storyboard);
     Response<Storyboard> findById(int storyboardId);
     Response deleteById(int storyboardId);
