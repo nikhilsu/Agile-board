@@ -21,7 +21,7 @@ public abstract class BaseDaoImpl {
         } catch (HibernateException exception) {
             // TODO: Log exception
             System.out.println(exception.getMessage());
-            return Response.Failure(Collections.singletonList(exception.getMessage()));
+            return Response.Failure(exception.getMessage());
         }
     }
 
@@ -32,7 +32,7 @@ public abstract class BaseDaoImpl {
             currentSession.flush();
             return Response.SuccessEmptyPayload();
         } catch (HibernateException exception) {
-            return Response.Failure(Collections.singletonList(exception.getMessage()));
+            return Response.Failure(exception.getMessage());
         }
     }
 
@@ -43,7 +43,7 @@ public abstract class BaseDaoImpl {
             currentSession.flush();
             return Response.SuccessEmptyPayload();
         } catch (Exception exception) {
-            return Response.Failure(Collections.singletonList(exception.getMessage()));
+            return Response.Failure(exception.getMessage());
         }
     }
 

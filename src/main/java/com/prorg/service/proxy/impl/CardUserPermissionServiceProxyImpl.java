@@ -28,7 +28,7 @@ public class CardUserPermissionServiceProxyImpl implements CardUserPermissionSer
                 return cardService.addUserToCard(card, userToAdd);
             return Response.SuccessEmptyPayload();
         }
-        return Response.Failure(Collections.singletonList("This user does not belong to the storyboard the card is in!"));
+        return Response.Failure("This user does not belong to the storyboard the card is in!");
     }
 
     @Override
@@ -36,7 +36,7 @@ public class CardUserPermissionServiceProxyImpl implements CardUserPermissionSer
         List<User> usersWhoHaveAccess = getUsersHavingAccessToStoryboardTheCardIsIn(card);
         if (usersWhoHaveAccess.contains(user))
             return  cardService.deleteCardIfAccessibleByUser(card, user);
-        return Response.Failure(Collections.singletonList("You do not have permission to delete this card"));
+        return Response.Failure("You do not have permission to delete this card");
     }
 
     private List<User> getUsersHavingAccessToStoryboardTheCardIsIn(Card card) {

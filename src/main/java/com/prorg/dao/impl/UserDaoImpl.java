@@ -37,7 +37,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         try {
             return Response.Success((User) query.getSingleResult());
         } catch (Exception exception) {
-            return Response.Failure(Collections.singletonList(exception.getMessage()));
+            return Response.Failure(exception.getMessage());
         }
     }
 

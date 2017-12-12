@@ -1,6 +1,7 @@
 package com.prorg.helper.result;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Response<T> {
@@ -23,6 +24,10 @@ public class Response<T> {
 
     public static <T> Response<T> Failure(List<String> errors) {
         return new Response<>(null, errors);
+    }
+
+    public static <T> Response<T> Failure(String error) {
+        return Failure(Collections.singletonList(error));
     }
 
     public boolean isSuccessful() {

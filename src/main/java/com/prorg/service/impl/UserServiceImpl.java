@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     public Response<Integer> loginUser(String email, String password) throws Exception {
         Response response = userDao.findByEmail(email);
         if(!response.isSuccessful() || response.data() == null)
-            return Response.Failure(Collections.singletonList("User not found."));
+            return Response.Failure("User not found.");
         User user = (User) response.data();
         ValidationResponse validationResponse = modelValidator.validate(user.setPassword(password).setConfirmPassword(password));
         if (!validationResponse.isValid())

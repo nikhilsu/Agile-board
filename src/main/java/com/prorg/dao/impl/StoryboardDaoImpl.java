@@ -57,7 +57,7 @@ public class StoryboardDaoImpl extends BaseDaoImpl implements StoryboardDao {
                     .getResultList();
             return Response.Success(storyboards);
         } catch (Exception exception) {
-            return Response.Failure(Collections.singletonList(exception.getMessage()));
+            return Response.Failure(exception.getMessage());
         }
     }
 }
