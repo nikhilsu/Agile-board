@@ -9,6 +9,12 @@
 <body>
 <h3>${storyboard.title}</h3>
 
+<h3>Add user to storyboard</h3>
+<form action="/storyboards/${storyboard.id}/users" method="post">
+    <input type="text" name="email" placeholder="Email"/>
+    <input type="submit" value="Add"/>
+</form>
+
 <h3>All you swimlanes</h3>
 <div class="inline-flex">
     <c:forEach var="swimlane" items="${storyboard.swimlanes}" varStatus="row">

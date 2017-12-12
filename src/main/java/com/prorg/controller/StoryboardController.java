@@ -70,14 +70,14 @@ public class StoryboardController {
     public String addUserToStoryboard(HttpServletRequest request, @PathVariable("id") int storyboardId, Model model) throws Exception {
         String emailOfUserToAdd = request.getParameter("email");
         Response<User> getUser = userService.getUserByEmail(emailOfUserToAdd);
-        if (getUser.isSuccessful()) {
-            User userToAdd = getUser.data();
-            Response updateAssignedUsersOfCard = storyboardService.addUserToStoryboard(storyboardId, userToAdd);
+        Response<Storyboard> getStoryboard = storyboardService.getStoryboardById(storyboardId);
+        if (getUser.isSuccessful() && getStoryboard.isSuccessful()) {
+            Response updateAssignedUsersOfCard = storyboardService.addUserToStoryboard(getStoryboard.data(), getUser.data());
             model.addAttribute(Constants.ModelAttributes.MESSAGE, updateAssignedUsersOfCard.isSuccessful() ? "Success" : "Failed");
         }
         else {
             model.addAttribute(Constants.ModelAttributes.MESSAGE, "Failed");
         }
-        return Constants.RedirectPage.INDEX;
+        return Constants.Route.REDIRECT + Constants.Route.SPECIFIC_STORYBOARD(storyboardId);
     }
 }

@@ -1,6 +1,7 @@
 package com.prorg.service.impl;
 
 import com.prorg.dao.CardDao;
+import com.prorg.dao.UserDao;
 import com.prorg.helper.result.Response;
 import com.prorg.helper.result.ValidationResponse;
 import com.prorg.helper.validator.ModelValidator;
@@ -13,17 +14,20 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
 @Transactional
 public class CardServiceImpl implements CardService {
     private final CardDao cardDao;
+    private UserDao userDao;
     private final ModelValidator validator;
 
     @Autowired
-    public CardServiceImpl(CardDao cardDao, ModelValidator validator) {
+    public CardServiceImpl(CardDao cardDao, UserDao userDao, ModelValidator validator) {
         this.cardDao = cardDao;
+        this.userDao = userDao;
         this.validator = validator;
     }
 
@@ -54,6 +58,12 @@ public class CardServiceImpl implements CardService {
         List<User> assignedUsers = card.getAssignedUsers();
         assignedUsers.add(user);
         card.setAssignedUsers(assignedUsers);
+        List<Card> cards = user.getCards();
+        cards.add(card);
+        user.setCards(cards);
+        Response updateUser = userDao.update(user);
+        if(!updateUser.isSuccessful())
+            return updateUser;
         return cardDao.update(card);
     }
 

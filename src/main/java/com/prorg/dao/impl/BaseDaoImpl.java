@@ -27,7 +27,9 @@ public abstract class BaseDaoImpl {
 
     Response update(Object model) {
         try {
-            getCurrentSession().update(model);
+            Session currentSession = getCurrentSession();
+            currentSession.update(model);
+            currentSession.flush();
             return Response.SuccessEmptyPayload();
         } catch (HibernateException exception) {
             return Response.Failure(Collections.singletonList(exception.getMessage()));

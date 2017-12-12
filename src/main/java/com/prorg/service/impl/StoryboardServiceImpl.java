@@ -1,5 +1,6 @@
 package com.prorg.service.impl;
 
+import com.prorg.dao.UserDao;
 import com.prorg.helper.result.Response;
 import com.prorg.helper.result.ValidationResponse;
 import com.prorg.helper.validator.ModelValidator;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,14 +19,15 @@ import java.util.List;
 public class StoryboardServiceImpl implements StoryboardService {
 
     private final StoryboardDao storyboardDao;
+    private UserDao userDao;
     private final ModelValidator validator;
 
     @Autowired
-    public StoryboardServiceImpl(StoryboardDao storyboardDao, ModelValidator validator) {
+    public StoryboardServiceImpl(StoryboardDao storyboardDao, UserDao userDao, ModelValidator validator) {
         this.storyboardDao = storyboardDao;
+        this.userDao = userDao;
         this.validator = validator;
     }
-
 
     @Override
     public Response<Integer> createStoryboard(String title, String description, User createdBy){
@@ -48,14 +49,16 @@ public class StoryboardServiceImpl implements StoryboardService {
     }
 
     @Override
-    public Response addUserToStoryboard(int storyboardId, User userToAdd) throws Exception {
-        Response queryResponse = storyboardDao.findById(storyboardId);
-        if (!queryResponse.isSuccessful())
-            return queryResponse;
-        Storyboard storyboard = (Storyboard) queryResponse.data();
+    public Response addUserToStoryboard(Storyboard storyboard, User userToAdd) {
+        List<Storyboard> accessibleStoryboards = userToAdd.getAccessibleStoryboards();
+        accessibleStoryboards.add(storyboard);
+        userToAdd.setAccessibleStoryboards(accessibleStoryboards);
+        Response updateUser = userDao.update(userToAdd);
+        if (!updateUser.isSuccessful())
+            return updateUser;
+
         List<User> usersWhoHaveAccess = storyboard.getUsersWhoHaveAccess();
-        if (!usersWhoHaveAccess.contains(userToAdd))
-            usersWhoHaveAccess.add(userToAdd);
+        usersWhoHaveAccess.add(userToAdd);
         storyboard.setUsersWhoHaveAccess(usersWhoHaveAccess);
         return storyboardDao.update(storyboard);
     }
