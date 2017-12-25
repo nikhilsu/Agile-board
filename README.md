@@ -1,12 +1,11 @@
-# CSCI-5448-Project-Mgm-Tool
+# Project-Mgm-Tool
 
-Project Management Tool
+A simple Project Management Tool similar to [Trello.](https://trello.com/) This tool was built for a design cum refactoring exercise.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+### Dependencies to be installed
 
 ```
 Postgres 9.4.15
@@ -14,13 +13,19 @@ Gradle 4.2.1
 Jetty 9.4.7
 ```
 
-## Running the app
+#### Building the app
+
+```
+./gradlew clean build
+```
+
+#### Running the app
 
 ```
 ./gradlew appRun
 ```
 
-Note: The app will not unless the env var 'DATABASE_URL' is set with the right database URL.
+**Note**: The app will not unless the env var 'DATABASE_URL' is set with the right database URL.
 ```
 export DATABASE_URL="postgres://<username>:<password>@<server>:<port>/<dbName>"
 ```
