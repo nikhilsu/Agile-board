@@ -16,6 +16,7 @@ Jetty 9.4.7
 #### Building the app
 
 ```
+./gradlew createDB
 ./gradlew clean build
 ```
 
@@ -32,4 +33,10 @@ export DATABASE_URL="postgres://<username>:<password>@<server>:<port>/<dbName>"
 Example :-
 ```bash
 export DATABASE_URL="postgres://postgres:postgres@localhost:5432/prorg"
+```
+
+#### Deploy app to Heroku
+
+```
+./gradlew deploy
 ```

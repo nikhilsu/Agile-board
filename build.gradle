@@ -76,6 +76,11 @@ task createDB(type: Exec){
     commandLine './create.sh'
 }
 
+task deploy(type: Exec){
+    workingDir 'scripts'
+    commandLine './deploy-to-prod.sh'
+}
+
 flyway {
     def dbUri = new URI(System.getenv("DATABASE_URL"))
 
