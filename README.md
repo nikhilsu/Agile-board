@@ -1,6 +1,6 @@
-# Project-Mgm-Tool
+# Agile-board
 
-A simple Project Management Tool similar to [Trello.](https://trello.com/) This tool was built for a design cum refactoring exercise.
+A simple Agile board similar to [Trello.](https://trello.com/) This tool was built for a design cum refactoring exercise.
 
 ## Getting Started
 
